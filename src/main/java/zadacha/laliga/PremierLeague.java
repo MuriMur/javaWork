@@ -1,9 +1,12 @@
+package zadacha.laliga;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class LaLigaPlusProblems {
+
+public class PremierLeague {
     public static String calcXOdds(String[][] arr, String s) throws FileNotFoundException {
         //PrintStream fileWriter = new PrintStream("export2.txt");
         StringBuilder sb = new StringBuilder();
@@ -129,7 +132,7 @@ public class LaLigaPlusProblems {
         }
     }
 
-    public static void main()
+    public static void main(String[] args)
             throws IOException
     {
         //  WhatIsJava whatIsJava = new WhatIsJava();

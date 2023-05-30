@@ -1,3 +1,5 @@
+package zadacha.laliga;
+
 import java.io.IOException;
 
 public class DemoApplication {

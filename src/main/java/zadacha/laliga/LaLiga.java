@@ -1,3 +1,5 @@
+package zadacha.laliga;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
