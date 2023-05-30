@@ -13,6 +13,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Document doc = Jsoup.connect("https://zani.bg/").get();
         Elements categoriesNames = doc.select("#menu-classic-shop-main-menu >li a .menu-text");
+        Elements coCategoriesNames = doc.select("#menu-classic-shop-main-menu >li .sub-menu >li a");
         Elements lis = doc.getElementById("menu-classic-shop-main-menu").getElementsByTag("li");
         List<String> names = new ArrayList<>();
         for (Element li : lis) {
