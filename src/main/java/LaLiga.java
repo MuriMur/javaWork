@@ -1,12 +1,17 @@
-import org.jsoup.nodes.*;
-import org.jsoup.*;
-import org.jsoup.select.*;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
 public class LaLiga {
-    public static void main(String[] args) throws IOException {
+    public static void main() throws IOException {
         HashMap<String, List<String>> laLigaTable = new HashMap<>();
         Document doc = Jsoup.connect("https://www.betexplorer.com/football/spain/laliga-2021-2022/results/").get();
         log(doc.title());
