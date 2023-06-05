@@ -46,10 +46,10 @@ public class Category {
 
     @Override
     public String toString() {
-        return "Category{" +
-                "name='" + name + '\'' +
-                ", urlAddress='" + urlAddress + '\'' +
-                ", parent='" + parent + '\'' +
+        return "Category{ " +
+                "name = " + name +
+                ", urlAddress = " + urlAddress +
+                ", parent = " + parent +
                 '}';
     }
 }

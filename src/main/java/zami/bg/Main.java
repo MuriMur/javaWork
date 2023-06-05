@@ -5,6 +5,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -16,22 +18,28 @@ public class Main {
         Elements mainMenuLis = doc.getElementById("menu-classic-shop-main-menu").getElementsByTag("li");
         List<String> names = new ArrayList<>();
         PrintStream fileWriter = new PrintStream("export-of-categories.txt");
-        List<String> podCategories = null;
+        List<String> podCategoriesNames = null;
         List<Category> categoryList = new ArrayList<>();
         List<Category> parentCategoryList = new ArrayList<>();
+        PrintStream fileWriter1 = new PrintStream("export-of-products.txt");
         for (Element li : mainMenuLis) {
             Element span = li.getElementsByClass("menu-text").first();
             Element url = li.getElementsByAttribute("href").first();
+            Element subMenu = li.getElementsByTag("ul").first();
             if (span != null) {
                 names.add(span.text().trim());
                 Category category = new Category(span.text().trim(), url.attr("href"));
                 categoryList.add(category);
                 parentCategoryList.add(category);
+                if (subMenu == null) {
+                    //fileWriter.println(parentCategoryList.get(parentCategoryList.size()-1));
+                    fileWriter.println(categoryList.get(categoryList.size() - 1));
+                    System.out.println(categoryList.get(categoryList.size() - 1));
+
+                }
             }
-            Element subMenu = li.getElementsByTag("ul").first();
             if (subMenu == null) {
                 //fileWriter.println(parentCategoryList.get(parentCategoryList.size()-1));
-                //fileWriter.println(categoryList.get(categoryList.size() -1));
                 continue;
             }
             Elements subMenuList = subMenu.getElementsByTag("li");
@@ -41,38 +49,34 @@ public class Main {
                 if (spanSub == null) {
                     continue;
                 }
-                podCategories = new ArrayList<>();
-                podCategories.add(spanSub.text().trim());
-                Category category = new Category(podCategories.get(0), subUrl.attr("href"), parentCategoryList.get(parentCategoryList.size() - 1));
+                podCategoriesNames = new ArrayList<>();
+                podCategoriesNames.add(spanSub.text().trim());
+                Category category = new Category(podCategoriesNames.get(0), subUrl.attr("href"), parentCategoryList.get(parentCategoryList.size() - 1));
                 categoryList.add(category);
-                //fileWriter.println(category);
+                fileWriter.println(category);
+                System.out.println(category);
+                readProducts(category.getUrlAddress(), category, fileWriter1);
             }
 
         }
-        for (int i = 0; i < categoryList.size(); i++) {
-            fileWriter.println(categoryList.get(i));
+    }
+    public static void readProducts(String url, Category category, PrintStream fileWriter) throws IOException{
+        Document podDoc = Jsoup.connect(url).get();
+        Elements tableLis = podDoc.getElementsByClass("products clearfix products-4");
+        Elements lis = tableLis.select("li");
+        List<Product> products = new ArrayList<>();
+        for (Element li : lis) {
+            Element podUrl = li.getElementsByAttribute("href").first();
+            Document document = Jsoup.connect(podUrl.attr("href")).get();
+            Element summaryContainer = document.getElementsByClass("summary-container").first();
+            String name = summaryContainer.getElementsByAttributeValue("itemprop", "name").first().text();
+            String price = summaryContainer.getElementsByClass("price").first().text();
+            Product product = new Product(name, price, category);
+            System.out.println(product);
+            fileWriter.println(product);
+            products.add(product);
         }
-//        List<String> catUrls = new ArrayList<>();
-//        List<String> childCatUrls = new ArrayList<>();
-//        doc.select("#menu-classic-shop-main-menu >li").get(1).select("a").attr("href");
-//        for (int i = 0; i < parentCategoriesNames.size(); i++) {
-//            catUrls.add(doc.select("#menu-classic-shop-main-menu >li").get(i).select("a").attr("href"));
-//            Category category = new Category(names.get(i), catUrls.get(i));
-//            fileWriter.println(category.toString());
-//        }
-//
-//        while (index < parentCategoriesNames.size()) {
-//            while(index < doc.getElementsByClass("sub-menu").get(index).childrenSize()) {
-//          Element span = doc.getElementsByClass("sub-menu").get(index).getElementsByTag("span").first();
-//                childCatUrls.add(doc.select("#menu-classic-shop-main-menu >li .sub-menu >li").get(index).select("a").attr("href"));
-//                podCategories = doc.getElementsByClass("sub-menu").get(index).getElementsByTag("span").eachText();
-//               Category category1 = new Category(podCategories.get(index), childCatUrls.get(index), names.get(index + 1));
-//                fileWriter.println(category1);
-//                index++;
-//            }
-//            index++;
-//        }
-//        System.out.println(names);
-//    }
+        fileWriter.println("Next Category");
+
     }
 }
