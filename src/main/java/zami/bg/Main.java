@@ -32,9 +32,9 @@ public class Main {
                 categoryList.add(category);
                 parentCategoryList.add(category);
                 if (subMenu == null) {
-                    //fileWriter.println(parentCategoryList.get(parentCategoryList.size()-1));
-                    fileWriter.println(categoryList.get(categoryList.size() - 1));
+                    //fileWriter.println(categoryList.get(categoryList.size() - 1));
                     System.out.println(categoryList.get(categoryList.size() - 1));
+                    readProducts(category.getUrlAddress(), category , fileWriter1);
 
                 }
             }
@@ -53,7 +53,7 @@ public class Main {
                 podCategoriesNames.add(spanSub.text().trim());
                 Category category = new Category(podCategoriesNames.get(0), subUrl.attr("href"), parentCategoryList.get(parentCategoryList.size() - 1));
                 categoryList.add(category);
-                fileWriter.println(category);
+                //fileWriter.println(category);
                 System.out.println(category);
                 readProducts(category.getUrlAddress(), category, fileWriter1);
             }
@@ -64,19 +64,50 @@ public class Main {
         Document podDoc = Jsoup.connect(url).get();
         Elements tableLis = podDoc.getElementsByClass("products clearfix products-4");
         Elements lis = tableLis.select("li");
+        int index = 1;
+        String stringIndex = "1";
         List<Product> products = new ArrayList<>();
-        for (Element li : lis) {
-            Element podUrl = li.getElementsByAttribute("href").first();
-            Document document = Jsoup.connect(podUrl.attr("href")).get();
-            Element summaryContainer = document.getElementsByClass("summary-container").first();
-            String name = summaryContainer.getElementsByAttributeValue("itemprop", "name").first().text();
-            String price = summaryContainer.getElementsByClass("price").first().text();
-            Product product = new Product(name, price, category);
-            System.out.println(product);
-            fileWriter.println(product);
-            products.add(product);
+        if (podDoc.getElementsByClass("next page-numbers").first() == null) {
+            System.out.println("Now going to " + url + "/page/" + stringIndex + "/");
+            podDoc = Jsoup.connect(url + "page/" + stringIndex + "/").get();
+            tableLis = podDoc.getElementsByClass("products clearfix products-4");
+            lis = tableLis.select("li");
+            stringIndex = String.valueOf(index);
+            fileWriter.println(category.getName());
+            for (Element li : lis) {
+                Element podUrl = li.getElementsByAttribute("href").first();
+                Document document = Jsoup.connect(podUrl.attr("href")).get();
+                Element summaryContainer = document.getElementsByClass("summary-container").first();
+                String name = summaryContainer.getElementsByAttributeValue("itemprop", "name").first().text();
+                String price = summaryContainer.getElementsByClass("price").first().text();
+                Product product = new Product(name, price, category);
+                System.out.println(product);
+                fileWriter.println(product);
+                products.add(product);
+            }
         }
-        fileWriter.println("Next Category");
+        while(podDoc.getElementsByClass("next page-numbers").first() != null) {
+            System.out.println("Now going to " + url + "/page/" + stringIndex + "/");
+            podDoc = Jsoup.connect(url + "page/" + stringIndex + "/").get();
+            tableLis = podDoc.getElementsByClass("products clearfix products-4");
+            lis = tableLis.select("li");
+            index++;
+            stringIndex = String.valueOf(index);
+            fileWriter.println(category.getName());
+            for (Element li : lis) {
+                Element podUrl = li.getElementsByAttribute("href").first();
+                Document document = Jsoup.connect(podUrl.attr("href")).get();
+                Element summaryContainer = document.getElementsByClass("summary-container").first();
+                String name = summaryContainer.getElementsByAttributeValue("itemprop", "name").first().text();
+                String price = summaryContainer.getElementsByClass("price").first().text();
+                Product product = new Product(name, price, category);
+                System.out.println(product);
+                fileWriter.println(product);
+                products.add(product);
+            }
+            fileWriter.println("Next page");
+        }
 
     }
 }
+
