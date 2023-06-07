@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Product {
     public String name = "";
-    public String price = "";
+    public BigDecimal price = null;
     public Category category = null;
     public List<String> images = new ArrayList<>();
     public String catalogNumber = "";
@@ -15,7 +15,16 @@ public class Product {
     public String description = "";
     public BigDecimal promoPrice = null;
 
-    public Product(String name, String price, Category category, List<String> images, String catalogNumber, HashMap<String, String> features, String description, BigDecimal promoPrice) {
+    public Product(String name, BigDecimal price, Category category, List<String> images, String catalogNumber, HashMap<String, String> features) {
+        this.name = name;
+        this.price = price;
+        this.category = category;
+        this.images = images;
+        this.catalogNumber = catalogNumber;
+        this.features = features;
+    }
+
+    public Product(String name, BigDecimal price, Category category, List<String> images, String catalogNumber, HashMap<String, String> features, String description, BigDecimal promoPrice) {
         this.name = name;
         this.price = price;
         this.category = category;
@@ -24,6 +33,21 @@ public class Product {
         this.features = features;
         this.description = description;
         this.promoPrice = promoPrice;
+    }
+
+    public Product(String name, BigDecimal price, Category category, List<String> images, String catalogNumber) {
+        this.name = name;
+        this.price = price;
+        this.category = category;
+        this.images = images;
+        this.catalogNumber = catalogNumber;
+    }
+
+    public Product(String name, BigDecimal price, Category category, List<String> images) {
+        this.name = name;
+        this.price = price;
+        this.category = category;
+        this.images = images;
     }
 
     public List<String> getImages() {
@@ -79,7 +103,7 @@ public class Product {
         this.category = category;
     }
 
-    public Product(String name, String price) {
+    public Product(String name, BigDecimal price) {
         this.name = name;
         this.price = price;
     }
@@ -96,18 +120,28 @@ public class Product {
         this.name = name;
     }
 
-    public String getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public Product(String name, String price, Category category) {
+    public Product(String name, BigDecimal price, Category category) {
         this.name = name;
         this.price = price;
         this.category = category;
+    }
+
+    public Product(String name, BigDecimal price, Category category, List<String> images, String catalogNumber, HashMap<String, String> features, String description) {
+        this.name = name;
+        this.price = price;
+        this.category = category;
+        this.images = images;
+        this.catalogNumber = catalogNumber;
+        this.features = features;
+        this.description = description;
     }
 
     @Override
@@ -116,6 +150,11 @@ public class Product {
                 "name='" + name + '\'' +
                 ", price='" + price + '\'' +
                 ", category=" + category +
+                ", images=" + images +
+                ", catalogNumber='" + catalogNumber + '\'' +
+                ", features=" + features +
+                ", description='" + '\'' +
+                ", promoPrice=" + promoPrice +
                 '}';
     }
 }

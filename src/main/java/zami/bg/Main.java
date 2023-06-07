@@ -5,13 +5,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.io.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -84,23 +83,55 @@ public class Main {
                 Document document = Jsoup.connect(podUrl.attr("href")).get();
                 Element summaryContainer = document.getElementsByClass("summary-container").first();
                 String name = summaryContainer.getElementsByAttributeValue("itemprop", "name").first().text();
-                String price = summaryContainer.getElementsByClass("price").first().text();
-                Elements imageTableLis = document.getElementsByClass("ol");
-                Elements iLis = imageTableLis.select("li");
+                Element priceEl = summaryContainer.getElementsByClass("price").first();
+                String price = "";
+                String promoPrice = "";
+                String finalPrice = "";
+                BigDecimal promoPriceBigDecimal = null;
 
-                List<String> images = new ArrayList<>();
-                for (Element li1 : iLis) {
-                    Element element = document.getElementsByClass("avada-single-product-gallery-wrapper avada-product-images-global avada-product-images-thumbnails-bottom").first().getElementsByTag("img").first();
-                    images.add(element.text());
+                if (priceEl.getElementsByTag("bdi").first() != null){
+                    price = priceEl.getElementsByTag("bdi").first().text();
+                    finalPrice = price;
+                }else if (priceEl.getElementsByTag("del").first() != null){
+                    price = priceEl.getElementsByTag("del").first().text();
+                    promoPrice = priceEl.getElementsByTag("ins").first().text();
+                    finalPrice = promoPrice;
+                    promoPriceBigDecimal = BigDecimal.valueOf(Double.parseDouble(promoPrice));
+
+                }else{
+                    finalPrice = summaryContainer.getElementsByClass("price").first().text();
                 }
-
-                Product product = new Product(name, price, category);
+                BigDecimal finalPriceBigDecimal = BigDecimal.valueOf(Double.parseDouble(finalPrice));
+//                Elements spans = priceEl.getElementsByClass("woocommerce-Price-amount amount");
+//                Stack<String> prices = new Stack<>();
+//                for (Element span : spans) {
+//                    prices.push(span.text());
+//                }
+                Element galleryElement = document.getElementsByClass("avada-single-product-gallery-wrapper avada-product-images-global avada-product-images-thumbnails-bottom").first();
+                Elements as = galleryElement.getElementsByTag("img");
+                List<String> images = new ArrayList<>();
+                for (Element a : as) {
+                    images.add(a.attr("data-src"));
+                }
+                Element productMeta = document.getElementsByClass("product_meta").first();
+                String catalogNumber = productMeta.getElementsByClass("sku").text();
+                Element moreInformationTable = document.getElementsByClass("woocommerce-product-attributes shop_attributes").first();
+                Elements trs = moreInformationTable.getElementsByTag("tr");
+                HashMap<String, String> features = new HashMap<>();
+                for (Element tr : trs) {
+                    features.put(tr.getElementsByClass("woocommerce-product-attributes-item__label").first().text(),
+                            tr.getElementsByClass("woocommerce-product-attributes-item__value").first().text());
+                }
+                Element descEl = document.getElementsByClass("woocommerce-Tabs-panel woocommerce-Tabs-panel--description panel entry-content wc-tab").first()
+                        .getElementsByClass("post-content").first();
+                String description = descEl.html();
+                Product product = new Product(name, finalPriceBigDecimal, category, images, catalogNumber, features, description, promoPriceBigDecimal);
                 System.out.println(product);
                 fileWriter.println(product);
                 products.add(product);
                 //sleep(800);
             }
-            fileWriter.println("Now going to " + url + "/page/" + index + "/");
+            //fileWriter.println("Now going to " + url + "/page/" + index + "/");
         }
         System.out.println(products.size());
     }
@@ -123,14 +154,55 @@ public class Main {
             Document document = Jsoup.connect(podUrl.attr("href")).get();
             Element summaryContainer = document.getElementsByClass("summary-container").first();
             String name = summaryContainer.getElementsByAttributeValue("itemprop", "name").first().text();
-            String price = summaryContainer.getElementsByClass("price").first().text();
-            Product product = new Product(name, price, category);
+            Element priceEl = summaryContainer.getElementsByClass("price").first();
+            String price = "";
+            String promoPrice = "";
+            String finalPrice = "";
+            BigDecimal promoPriceBigDecimal = null;
+            if (priceEl.getElementsByTag("bdi").first() != null){
+                price = priceEl.getElementsByTag("bdi").first().text();
+                finalPrice = price;
+            }else if (priceEl.getElementsByTag("del").first() != null){
+                price = priceEl.getElementsByTag("del").first().text();
+                promoPrice = priceEl.getElementsByTag("ins").first().text();
+                finalPrice = promoPrice;
+                promoPriceBigDecimal = BigDecimal.valueOf(Double.parseDouble(promoPrice));
+
+            }else{
+                finalPrice = summaryContainer.getElementsByClass("price").first().text();
+            }
+            BigDecimal finalPriceBigDecimal = BigDecimal.valueOf(Double.parseDouble(finalPrice));
+            Element galleryElement = document.getElementsByClass("avada-single-product-gallery-wrapper avada-product-images-global avada-product-images-thumbnails-bottom").first();
+            Elements as = galleryElement.getElementsByTag("img");
+            List<String> images = new ArrayList<>();
+            for (Element a : as) {
+                images.add(a.attr("data-src"));
+            }
+            Element productMeta = document.getElementsByClass("product_meta").first();
+            String catalogNumber = productMeta.getElementsByClass("sku").text();
+            Element moreInformationTable = document.getElementsByClass("woocommerce-product-attributes shop_attributes").first();
+            Elements trs = moreInformationTable.getElementsByTag("tr");
+            HashMap<String, String> features = new HashMap<>();
+            for (Element tr : trs) {
+                features.put(tr.getElementsByClass("woocommerce-product-attributes-item__label").first().text(),
+                        tr.getElementsByClass("woocommerce-product-attributes-item__value").first().text());
+            }
+            Element descEl = document.getElementsByClass("woocommerce-Tabs-panel woocommerce-Tabs-panel--description panel entry-content wc-tab").first()
+                    .getElementsByClass("post-content").first();
+            String description = descEl.html();
+            Product product = new Product(name, finalPriceBigDecimal, category, images, catalogNumber, features, description, promoPriceBigDecimal);
             System.out.println(product);
             fileWriter.println(product);
             products.add(product);
             //sleep(800);
         }
         return products;
+    }
+    public static void writeProducts(List<Product> products) throws FileNotFoundException {
+        PrintStream fileWriter = new PrintStream("export-of-products.txt");
+        for (int i = 0; i < products.size(); i++){
+            fileWriter.println(products.get(i));
+        }
     }
 }
 
