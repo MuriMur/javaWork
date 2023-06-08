@@ -134,6 +134,15 @@ public class Product {
         this.category = category;
     }
 
+    public Product(String name, Category category, List<String> images, String catalogNumber, HashMap<String, String> features, String description) {
+        this.name = name;
+        this.category = category;
+        this.images = images;
+        this.catalogNumber = catalogNumber;
+        this.features = features;
+        this.description = description;
+    }
+
     public Product(String name, BigDecimal price, Category category, List<String> images, String catalogNumber, HashMap<String, String> features, String description) {
         this.name = name;
         this.price = price;
@@ -148,13 +157,13 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "name='" + name + '\'' +
-                ", price='" + price + '\'' +
+                ", price='" + price + "лв." + '\'' +
                 ", category=" + category +
                 ", images=" + images +
                 ", catalogNumber='" + catalogNumber + '\'' +
                 ", features=" + features +
                 ", description='" + '\'' +
-                ", promoPrice=" + promoPrice +
+                ", promoPrice=" + promoPrice + "лв." +
                 '}';
     }
 }

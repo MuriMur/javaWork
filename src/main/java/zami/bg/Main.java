@@ -84,24 +84,25 @@ public class Main {
                 Element summaryContainer = document.getElementsByClass("summary-container").first();
                 String name = summaryContainer.getElementsByAttributeValue("itemprop", "name").first().text();
                 Element priceEl = summaryContainer.getElementsByClass("price").first();
-                String price = "";
-                String promoPrice = "";
-                String finalPrice = "";
+                String price;
+                String promoPrice;
                 BigDecimal promoPriceBigDecimal = null;
+                BigDecimal priceBigDecimal = null;
 
-                if (priceEl.getElementsByTag("bdi").first() != null){
-                    price = priceEl.getElementsByTag("bdi").first().text();
-                    finalPrice = price;
-                }else if (priceEl.getElementsByTag("del").first() != null){
-                    price = priceEl.getElementsByTag("del").first().text();
-                    promoPrice = priceEl.getElementsByTag("ins").first().text();
-                    finalPrice = promoPrice;
+                if (priceEl.getElementsByTag("del").first() != null){
+                    price = priceEl.getElementsByTag("del").first().getElementsByTag("span").first().getElementsByTag("bdi")
+                            .first().text().replaceAll(" лв.","");
+                    priceBigDecimal = BigDecimal.valueOf(Double.parseDouble(price));
+                    promoPrice = priceEl.getElementsByTag("ins").first().text().replaceAll(" лв.", "");
                     promoPriceBigDecimal = BigDecimal.valueOf(Double.parseDouble(promoPrice));
-
-                }else{
-                    finalPrice = summaryContainer.getElementsByClass("price").first().text();
                 }
-                BigDecimal finalPriceBigDecimal = BigDecimal.valueOf(Double.parseDouble(finalPrice));
+                else if(priceEl.getElementsByTag("del").first() == null && !priceEl.text().equalsIgnoreCase("")){
+                    price = priceEl.getElementsByTag("bdi").first().text().replaceAll("лв.", "");
+                    priceBigDecimal = BigDecimal.valueOf(Double.parseDouble(price));
+                }else if (priceEl.text().equalsIgnoreCase("")){
+
+                }
+                //BigDecimal finalPriceBigDecimal = BigDecimal.valueOf(Double.parseDouble(finalPrice));
 //                Elements spans = priceEl.getElementsByClass("woocommerce-Price-amount amount");
 //                Stack<String> prices = new Stack<>();
 //                for (Element span : spans) {
@@ -125,7 +126,7 @@ public class Main {
                 Element descEl = document.getElementsByClass("woocommerce-Tabs-panel woocommerce-Tabs-panel--description panel entry-content wc-tab").first()
                         .getElementsByClass("post-content").first();
                 String description = descEl.html();
-                Product product = new Product(name, finalPriceBigDecimal, category, images, catalogNumber, features, description, promoPriceBigDecimal);
+                Product product = new Product(name, priceBigDecimal, category, images, catalogNumber, features, description , promoPriceBigDecimal);
                 System.out.println(product);
                 fileWriter.println(product);
                 products.add(product);
@@ -155,23 +156,25 @@ public class Main {
             Element summaryContainer = document.getElementsByClass("summary-container").first();
             String name = summaryContainer.getElementsByAttributeValue("itemprop", "name").first().text();
             Element priceEl = summaryContainer.getElementsByClass("price").first();
-            String price = "";
-            String promoPrice = "";
-            String finalPrice = "";
+            String price;
+            String promoPrice;
             BigDecimal promoPriceBigDecimal = null;
-            if (priceEl.getElementsByTag("bdi").first() != null){
-                price = priceEl.getElementsByTag("bdi").first().text();
-                finalPrice = price;
-            }else if (priceEl.getElementsByTag("del").first() != null){
-                price = priceEl.getElementsByTag("del").first().text();
-                promoPrice = priceEl.getElementsByTag("ins").first().text();
-                finalPrice = promoPrice;
-                promoPriceBigDecimal = BigDecimal.valueOf(Double.parseDouble(promoPrice));
+            BigDecimal priceBigDecimal = null;
 
-            }else{
-                finalPrice = summaryContainer.getElementsByClass("price").first().text();
+            if (priceEl.getElementsByTag("del").first() != null){
+                price = priceEl.getElementsByTag("del").first().getElementsByTag("span").first().getElementsByTag("bdi")
+                        .first().text().replaceAll(" лв.","");
+                priceBigDecimal = BigDecimal.valueOf(Double.parseDouble(price));
+                promoPrice = priceEl.getElementsByTag("ins").first().text().replaceAll(" лв.", "");
+                promoPriceBigDecimal = BigDecimal.valueOf(Double.parseDouble(promoPrice));
             }
-            BigDecimal finalPriceBigDecimal = BigDecimal.valueOf(Double.parseDouble(finalPrice));
+            else if(priceEl.getElementsByTag("del").first() == null && !priceEl.text().equalsIgnoreCase("")){
+                price = priceEl.getElementsByTag("bdi").first().text().replaceAll("лв.", "");
+                priceBigDecimal = BigDecimal.valueOf(Double.parseDouble(price));
+            }else if (priceEl.text().equalsIgnoreCase("")){
+
+            }
+
             Element galleryElement = document.getElementsByClass("avada-single-product-gallery-wrapper avada-product-images-global avada-product-images-thumbnails-bottom").first();
             Elements as = galleryElement.getElementsByTag("img");
             List<String> images = new ArrayList<>();
@@ -190,7 +193,7 @@ public class Main {
             Element descEl = document.getElementsByClass("woocommerce-Tabs-panel woocommerce-Tabs-panel--description panel entry-content wc-tab").first()
                     .getElementsByClass("post-content").first();
             String description = descEl.html();
-            Product product = new Product(name, finalPriceBigDecimal, category, images, catalogNumber, features, description, promoPriceBigDecimal);
+            Product product = new Product(name, priceBigDecimal, category, images, catalogNumber, features, description, promoPriceBigDecimal);
             System.out.println(product);
             fileWriter.println(product);
             products.add(product);
