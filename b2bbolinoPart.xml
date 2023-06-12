@@ -1,0 +1,122 @@
+<products>
+    <product>
+        <id>1049</id>
+        <product_code>10745122</product_code>
+        <barcode>4008600382386</barcode>
+        <title>NUK First Choice стъклено шише Temperature Control 240мл. с каучуков биберон за хранене 0-6мес.</title>
+        <short_description><div class="p-desc">NUK First Choice стъклено шише Temperature Control 240мл. с каучуков биберон за хранене 0-6мес.<br /> Арт.№ 10745122</div></short_description>
+        <description><section class="p-more-info">&#10;<p><strong>NUK&nbsp;</strong><strong>стъклено</strong><strong>&nbsp;</strong><strong>шише&nbsp;</strong><strong>Temperature control 240</strong><strong>мл, биберон каучук 0-6м, подходящ за мляко</strong><strong>&nbsp;&ndash;&nbsp;</strong>интегрираната скала показва температурата на храната: оцветена в бяло &ndash; горещо, средно наситено синьо &ndash; 37 градуса, тъмно синьо &ndash; студено. &nbsp;Винаги проверявайте температурата на храната преди да я дадете на бебето. За допълнителна информация, прочетете приложената листовка. &nbsp;</p>&#10;<p>Производител: МАПА Германия,</p>&#10;<p>Вносител Беболино ЕООД ,София, ул. Христо Иванов Големия&nbsp; 9 , 028550706</p>&#10;</section></description>
+        <minimum>1</minimum>
+        <url>https://b2bbebolino.com/product/stakleni-shisheta</url>
+        <category>Шишета за хранене</category>
+        <sub_category>Стъклени шишета</sub_category>
+        <tabs/>
+        <manufacturer>NUK</manufacturer>
+        <price>12.40</price>
+        <original_price>12.40</original_price>
+        <weight/>
+        <sku>10745122</sku>
+        <stock_status>in stock</stock_status>
+        <images>
+            <image>https://cdncloudcart.com/27807/products/images/1049/stakleni-siseta-image_61f2b2c86a4ee_1920x1920.png?1643299274</image>
+            <image>https://cdncloudcart.com/27807/products/images/1049/stakleni-siseta-image_61f2b2c8b0ee5_1920x1920.png?1643299272</image>
+            <image>https://cdncloudcart.com/27807/products/images/1049/stakleni-siseta-image_61f2b2c8e92b2_1920x1920.png?1643299276</image>
+        </images>
+        <meta_title>Стъклени шишета</meta_title>
+        <meta_description>NUK стъклено шише Temperature control 240мл, биберон каучук 0-6м, подходящ за мляко – интегрираната скала показва температурата на храната: оцветена в бяло – горещо, средно наситено синьо – 37 градуса, тъмно синьо – студено.  Винаги проверявайте температурата на храната преди да я дадете на бебето. За допълнителна информация, прочетете приложената листовка.   Производител: МАПА Германия, Вносител Беболино ЕООД ,София, ул. Христо Иванов Големия  9 , 028550706</meta_description>
+        <options>
+            <option name="Избери цвят:">
+                <values>
+                    <value sku="10745122" barcode="4008600382386" stock_status="in stock" price="12.40" discounted_price="" image="">
+                        <name>Розов</name>
+                        <sku>10745122</sku>
+                        <barcode>4008600382386</barcode>
+                        <stock_status>in stock</stock_status>
+                        <price>12.40</price>
+                        <discounted_price/>
+                        <image/>
+                    </value>
+                    <value sku="10745122" barcode="4008600382386" stock_status="in stock" price="12.40" discounted_price="" image="">
+                        <name>Син</name>
+                        <sku>10745122</sku>
+                        <barcode>4008600382386</barcode>
+                        <stock_status>in stock</stock_status>
+                        <price>12.40</price>
+                        <discounted_price/>
+                        <image/>
+                    </value>
+                    <value sku="10745122" barcode="4008600382386" stock_status="in stock" price="12.40" discounted_price="" image="">
+                        <name>Бял</name>
+                        <sku>10745122</sku>
+                        <barcode>4008600382386</barcode>
+                        <stock_status>in stock</stock_status>
+                        <price>12.40</price>
+                        <discounted_price/>
+                        <image/>
+                    </value>
+                </values>
+            </option>
+        </options>
+        <variants>
+            <variant>
+                <id>2038</id>
+                <key>22</key>
+                <sku>10745122</sku>
+                <barcode>4008600382386</barcode>
+                <minimum>1</minimum>
+                <weight/>
+                <images/>
+                <stock_status>in stock</stock_status>
+                <price>12.40</price>
+                <discounted_price/>
+                <parameters>
+                    <parameter>
+                        <name>Избери цвят:</name>
+                        <value>Розов</value>
+                    </parameter>
+                </parameters>
+            </variant>
+            <variant>
+                <id>2040</id>
+                <key>21</key>
+                <sku>10745122</sku>
+                <barcode>4008600382386</barcode>
+                <minimum>1</minimum>
+                <weight/>
+                <images/>
+                <stock_status>in stock</stock_status>
+                <price>12.40</price>
+                <discounted_price/>
+                <parameters>
+                    <parameter>
+                        <name>Избери цвят:</name>
+                        <value>Син</value>
+                    </parameter>
+                </parameters>
+            </variant>
+            <variant>
+                <id>2042</id>
+                <key>23</key>
+                <sku>10745122</sku>
+                <barcode>4008600382386</barcode>
+                <minimum>1</minimum>
+                <weight/>
+                <images/>
+                <stock_status>in stock</stock_status>
+                <price>12.40</price>
+                <discounted_price/>
+                <parameters>
+                    <parameter>
+                        <name>Избери цвят:</name>
+                        <value>Бял</value>
+                    </parameter>
+                </parameters>
+            </variant>
+        </variants>
+        <cc_variants>
+            <variant>{"p1":"\u0418\u0437\u0431\u0435\u0440\u0438 \u0446\u0432\u044f\u0442:","p2":null,"p3":null,"v1":"\u0420\u043e\u0437\u043e\u0432","v2":null,"v3":null,"sku":"10745122","barcode":"4008600382386","minimum":1,"weight":null,"quantity":"in stock","price":"12.40","discounted_price":null,"image":null}</variant>
+            <variant>{"p1":"\u0418\u0437\u0431\u0435\u0440\u0438 \u0446\u0432\u044f\u0442:","p2":null,"p3":null,"v1":"\u0421\u0438\u043d","v2":null,"v3":null,"sku":"10745122","barcode":"4008600382386","minimum":1,"weight":null,"quantity":"in stock","price":"12.40","discounted_price":null,"image":null}</variant>
+            <variant>{"p1":"\u0418\u0437\u0431\u0435\u0440\u0438 \u0446\u0432\u044f\u0442:","p2":null,"p3":null,"v1":"\u0411\u044f\u043b","v2":null,"v3":null,"sku":"10745122","barcode":"4008600382386","minimum":1,"weight":null,"quantity":"in stock","price":"12.40","discounted_price":null,"image":null}</variant>
+        </cc_variants>
+    </product>
+</products>
