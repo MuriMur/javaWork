@@ -15,14 +15,6 @@ public class Product {
     public String description = "";
     public BigDecimal promoPrice = null;
 
-    public Product(String name, BigDecimal price, Category category, List<String> images, String catalogNumber, HashMap<String, String> features) {
-        this.name = name;
-        this.price = price;
-        this.category = category;
-        this.images = images;
-        this.catalogNumber = catalogNumber;
-        this.features = features;
-    }
 
     public Product(String name, BigDecimal price, Category category, List<String> images, String catalogNumber, HashMap<String, String> features, String description, BigDecimal promoPrice) {
         this.name = name;
@@ -33,21 +25,6 @@ public class Product {
         this.features = features;
         this.description = description;
         this.promoPrice = promoPrice;
-    }
-
-    public Product(String name, BigDecimal price, Category category, List<String> images, String catalogNumber) {
-        this.name = name;
-        this.price = price;
-        this.category = category;
-        this.images = images;
-        this.catalogNumber = catalogNumber;
-    }
-
-    public Product(String name, BigDecimal price, Category category, List<String> images) {
-        this.name = name;
-        this.price = price;
-        this.category = category;
-        this.images = images;
     }
 
     public List<String> getImages() {
@@ -90,26 +67,12 @@ public class Product {
         this.promoPrice = promoPrice;
     }
 
-    public Product(String name, Category category) {
-        this.name = name;
-        this.category = category;
-    }
-
     public Category getCategory() {
         return category;
     }
 
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public Product(String name, BigDecimal price) {
-        this.name = name;
-        this.price = price;
-    }
-
-    public Product(String name) {
-        this.name = name;
     }
 
     public String getName() {
@@ -126,31 +89,6 @@ public class Product {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    public Product(String name, BigDecimal price, Category category) {
-        this.name = name;
-        this.price = price;
-        this.category = category;
-    }
-
-    public Product(String name, Category category, List<String> images, String catalogNumber, HashMap<String, String> features, String description) {
-        this.name = name;
-        this.category = category;
-        this.images = images;
-        this.catalogNumber = catalogNumber;
-        this.features = features;
-        this.description = description;
-    }
-
-    public Product(String name, BigDecimal price, Category category, List<String> images, String catalogNumber, HashMap<String, String> features, String description) {
-        this.name = name;
-        this.price = price;
-        this.category = category;
-        this.images = images;
-        this.catalogNumber = catalogNumber;
-        this.features = features;
-        this.description = description;
     }
 
     @Override
