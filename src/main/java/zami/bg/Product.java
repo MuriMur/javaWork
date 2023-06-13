@@ -4,11 +4,10 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 public class Product {
     public String name = "";
     public BigDecimal price = null;
-    public Category category = null;
+    public zami.bg.Category category = null;
     public List<String> images = new ArrayList<>();
     public String catalogNumber = "";
     public HashMap<String , String> features = new HashMap<>();
@@ -16,7 +15,7 @@ public class Product {
     public BigDecimal promoPrice = null;
 
 
-    public Product(String name, BigDecimal price, Category category, List<String> images, String catalogNumber, HashMap<String, String> features, String description, BigDecimal promoPrice) {
+    public Product(String name, BigDecimal price, zami.bg.Category category, List<String> images, String catalogNumber, HashMap<String, String> features, String description, BigDecimal promoPrice) {
         this.name = name;
         this.price = price;
         this.category = category;
@@ -67,7 +66,7 @@ public class Product {
         this.promoPrice = promoPrice;
     }
 
-    public Category getCategory() {
+    public zami.bg.Category getCategory() {
         return category;
     }
 

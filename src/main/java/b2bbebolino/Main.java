@@ -47,20 +47,29 @@ public class Main {
                     if (qName.equalsIgnoreCase("Id")) {
                         id = true;
                     }
-                    if (qName.equalsIgnoreCase(
-                            "product_code")) {
+                    if (qName.equalsIgnoreCase("product_code")) {
                         productCode = true;
                     }
-                    if (qName.equalsIgnoreCase(
-                            "barcode")) {
+                    if (qName.equalsIgnoreCase("barcode")) {
                         barCode = true;
                     }
                     if (qName.equalsIgnoreCase("title")) {
                         title = true;
                     }
-                    if (qName.equalsIgnoreCase(
-                            "short_description")) {
+                    if (qName.equalsIgnoreCase("short_description")) {
                         shortDescription = true;
+                    }
+                    if (qName.equalsIgnoreCase("meta_description")){
+                        description = true;
+                    }
+                    if (qName.equalsIgnoreCase("category")){
+                        category = true;
+                    }
+                    if (qName.equalsIgnoreCase("sub_category")){
+                        subCategory = true;
+                    }
+                    if (qName.equalsIgnoreCase("manufacturer")){
+                        manufacturer = true;
                     }
                 }
 
@@ -91,6 +100,9 @@ public class Main {
                     if (shortDescription) {
                         System.out.println("short description : " + new String(ch, start, length));
                         shortDescription = false;
+                    }
+                    if (description){
+                        System.out.println("description : " + new String(ch, start, length));
                     }
                 }
             };

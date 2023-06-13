@@ -1,56 +1,61 @@
 package b2bbebolino;
-
-import zami.bg.Category;
-
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Product {
-    public String name = "";
-    public BigDecimal price = null;
-    public zami.bg.Category category = null;
-    public List<String> images = new ArrayList<>();
-    public String catalogNumber = "";
-    public HashMap<String , String> features = new HashMap<>();
-    public String description = "";
-    public BigDecimal promoPrice = null;
+    public String id = "";
+    public String productCode = "";
+    public String barCode;
+    public String title;
+    public String shortDescription;
+    public String description;
+    public String url;
+    public Category category;
+    public String manufacturer;
+    public BigDecimal price;
+    public BigDecimal originalPrice;
+    public String status;
+    public List<String> images;
+    public List<String> colours;
 
-
-    public Product(String name, BigDecimal price, zami.bg.Category category, List<String> images, String catalogNumber, HashMap<String, String> features, String description, BigDecimal promoPrice) {
-        this.name = name;
-        this.price = price;
-        this.category = category;
-        this.images = images;
-        this.catalogNumber = catalogNumber;
-        this.features = features;
-        this.description = description;
-        this.promoPrice = promoPrice;
+    public String getId() {
+        return id;
     }
 
-    public List<String> getImages() {
-        return images;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setImages(List<String> images) {
-        this.images = images;
+    public String getProductCode() {
+        return productCode;
     }
 
-    public String getCatalogNumber() {
-        return catalogNumber;
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
     }
 
-    public void setCatalogNumber(String catalogNumber) {
-        this.catalogNumber = catalogNumber;
+    public String getBarCode() {
+        return barCode;
     }
 
-    public HashMap<String, String> getFeatures() {
-        return features;
+    public void setBarCode(String barCode) {
+        this.barCode = barCode;
     }
 
-    public void setFeatures(HashMap<String, String> features) {
-        this.features = features;
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
     }
 
     public String getDescription() {
@@ -61,15 +66,15 @@ public class Product {
         this.description = description;
     }
 
-    public BigDecimal getPromoPrice() {
-        return promoPrice;
+    public String getUrl() {
+        return url;
     }
 
-    public void setPromoPrice(BigDecimal promoPrice) {
-        this.promoPrice = promoPrice;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public zami.bg.Category getCategory() {
+    public Category getCategory() {
         return category;
     }
 
@@ -77,12 +82,12 @@ public class Product {
         this.category = category;
     }
 
-    public String getName() {
-        return name;
+    public String getManufacturer() {
+        return manufacturer;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
     }
 
     public BigDecimal getPrice() {
@@ -93,17 +98,36 @@ public class Product {
         this.price = price;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "name='" + name + '\'' +
-                ", price='" + price + "лв." + '\'' +
-                ", category=" + category +
-                ", images=" + images +
-                ", catalogNumber='" + catalogNumber + '\'' +
-                ", features=" + features +
-                ", description='" + '\'' +
-                ", promoPrice=" + promoPrice + "лв." +
-                '}';
+    public BigDecimal getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public void setOriginalPrice(BigDecimal originalPrice) {
+        this.originalPrice = originalPrice;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
+
+    public List<String> getColours() {
+        return colours;
+    }
+
+    public void setColours(List<String> colours) {
+        this.colours = colours;
     }
 }
+
