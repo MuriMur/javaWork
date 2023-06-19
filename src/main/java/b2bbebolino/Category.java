@@ -3,13 +3,13 @@ package b2bbebolino;
 public class Category {
     public String name = "";
     public String urlAddress = "";
-    public zami.bg.Category parent = null;
+    public Category parent = null;
 
     public Category(String name) {
         this.name = name;
     }
 
-    public Category(String name, zami.bg.Category parent) {
+    public Category(String name, Category parent) {
         this.name = name;
         this.parent = parent;
     }
@@ -19,7 +19,7 @@ public class Category {
         this.urlAddress = urlAddress;
     }
 
-    public Category(String name, String urlAddress, zami.bg.Category parent) {
+    public Category(String name, String urlAddress, Category parent) {
         this.name = name;
         this.urlAddress = urlAddress;
         this.parent = parent;
@@ -41,11 +41,11 @@ public class Category {
         this.urlAddress = urlAddress;
     }
 
-    public zami.bg.Category getParent() {
+    public Category getParent() {
         return parent;
     }
 
-    public void setParent(zami.bg.Category parent) {
+    public void setParent(Category parent) {
         this.parent = parent;
     }
 

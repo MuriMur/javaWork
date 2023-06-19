@@ -15,8 +15,36 @@ public class Product {
     public BigDecimal price;
     public BigDecimal originalPrice;
     public String status;
+
     public List<String> images;
     public List<String> colours;
+    public String metaTitle;
+    public String metaDescription;
+    public List<Variant> variants;
+
+    public List<Variant> getVariants() {
+        return variants;
+    }
+
+    public void setVariants(List<Variant> variants) {
+        this.variants = variants;
+    }
+
+    public String getMetaTitle() {
+        return metaTitle;
+    }
+
+    public void setMetaTitle(String metaTitle) {
+        this.metaTitle = metaTitle;
+    }
+
+    public String getMetaDescription() {
+        return metaDescription;
+    }
+
+    public void setMetaDescription(String metaDescription) {
+        this.metaDescription = metaDescription;
+    }
 
     public String getId() {
         return id;
@@ -76,6 +104,29 @@ public class Product {
 
     public Category getCategory() {
         return category;
+    }
+
+    @Override
+    public String toString() {
+        return "=== Product ===" +
+                "\nid='" + id + '\'' +
+                ", \nproductCode='" + productCode + '\'' +
+                ", \nbarCode='" + barCode + '\'' +
+                ", \ntitle='" + title + '\'' +
+                ", \nshortDescription='" + shortDescription + '\'' +
+                ", \ndescription='" + description + '\'' +
+                ", \nurl='" + url + '\'' +
+                ", \ncategory=" + category +
+                ", \nmanufacturer='" + manufacturer + '\'' +
+                ", \nprice=" + price +
+                ", \noriginalPrice=" + originalPrice +
+                ", \nstatus='" + status + '\'' +
+                ", \nimages=" + images +
+                ", \ncolours=" + colours +
+                ", \nmetaTitle='" + metaTitle + '\'' +
+                ", \nmetaDescription='" + metaDescription + '\'' +
+                ", \nvariants=" + variants +
+                "\n=== ^^^ ===";
     }
 
     public void setCategory(Category category) {
