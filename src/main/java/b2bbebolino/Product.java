@@ -17,7 +17,6 @@ public class Product {
     public String status;
 
     public List<String> images;
-    public List<String> colours;
     public String metaTitle;
     public String metaDescription;
     public List<Variant> variants;
@@ -122,7 +121,6 @@ public class Product {
                 ", \noriginalPrice=" + originalPrice +
                 ", \nstatus='" + status + '\'' +
                 ", \nimages=" + images +
-                ", \ncolours=" + colours +
                 ", \nmetaTitle='" + metaTitle + '\'' +
                 ", \nmetaDescription='" + metaDescription + '\'' +
                 ", \nvariants=" + variants +
@@ -171,14 +169,6 @@ public class Product {
 
     public void setImages(List<String> images) {
         this.images = images;
-    }
-
-    public List<String> getColours() {
-        return colours;
-    }
-
-    public void setColours(List<String> colours) {
-        this.colours = colours;
     }
 }
 
