@@ -21,7 +21,7 @@ public class SAXxmlParser {
                         URL = "url", CATEGORY = "category", SUB_CATEGORY = "sub_category", MANUFACTURER = "manufacturer", PRICE = "price",
                         ORIGINAL_PRICE = "original_price", STOCK_STATUS = "stack_status", IMAGE = "image", META_TITLE = "meta_title", META_DESCRIPTION = "meta_description";
                 boolean id = false, productCode = false, barCode = false, title = false, shortDescription = false, div = false, br = false, description = false, url = false,
-                category = false, subCategory = false, manufacturer = false, price = false, originalPrice = false,
+                category = false, subCategory = false, manufacturer = false, price = false, originalPrice = false;
                 Product product;
                 List<Product> products;
                 List<String> images;
@@ -34,7 +34,6 @@ public class SAXxmlParser {
                         case PRODUCT:
                             product = new Product();
                             products.add(product);
-                            break;
                         case ID:
                             id = true;
                             break;
@@ -47,20 +46,20 @@ public class SAXxmlParser {
                         case TITLE:
                             title = true;
                             break;
-                        case ID:
-                            id = true;
+                        case SHORT_DESCRIPTION:
+                            shortDescription = true;
                             break;
-                        case ID:
-                            id = true;
+                        case DESCRIPTION:
+                            description = true;
                             break;
-                        case ID:
-                            id = true;
+                        case URL:
+                            url = true;
                             break;
-                        case ID:
-                            id = true;
+                        case SUB_CATEGORY:
+                            subCategory = true;
                             break;
-                        case ID:
-                            id = true;
+                        case CATEGORY:
+                            category = true;
                             break;
                         default:
                             break;
@@ -73,8 +72,14 @@ public class SAXxmlParser {
                     switch (qName){
                         case ID:
                             product.setId(elementValue.toString());
+                            System.out.println(product.getId());
+                            id = false;
                             break;
-                        case
+                        case SHORT_DESCRIPTION:
+                            product.setShortDescription(elementValue.toString());
+                            System.out.println(product.getShortDescription());
+                            shortDescription = false;
+                            break;
                     }
                 }
 
@@ -83,6 +88,7 @@ public class SAXxmlParser {
                         elementValue = new StringBuilder();
                     } else {
                         elementValue.append(ch, start, length);
+                        System.out.println(elementValue.toString());
                     }
                 }
             };
