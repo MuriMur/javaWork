@@ -4,6 +4,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -278,6 +279,10 @@ public class ProductHandler extends DefaultHandler {
                 break;
 
         }
+    }
+
+    public List<Product> getProducts() {
+        return products;
     }
 
     @Override

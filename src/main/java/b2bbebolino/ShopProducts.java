@@ -18,6 +18,13 @@ public class ShopProducts {
             SAXParser saxParser = factory.newSAXParser();
             ProductHandler handler = new ProductHandler();
             saxParser.parse(file, handler);
+            ExcelReadingWriting excelReadingWriting = new ExcelReadingWriting();
+            try {
+                excelReadingWriting.writeExcel(handler.getProducts());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            excelReadingWriting.readExcel();
         }
         catch (Exception e) {
             System.out.println(e);

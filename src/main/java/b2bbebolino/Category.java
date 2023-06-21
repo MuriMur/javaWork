@@ -51,10 +51,10 @@ public class Category {
 
     @Override
     public String toString() {
-        return "Category{ " +
-                "name = " + name +
-                ", urlAddress = " + urlAddress +
-                ", parent = " + parent +
-                '}';
+        if (parent != null){
+            return name + " < " + parent;
+        }else {
+            return name;
+        }
     }
 }

@@ -1,5 +1,6 @@
 package b2bbebolino;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Product {
@@ -10,7 +11,7 @@ public class Product {
     public String shortDescription;
     public String description;
     public String url;
-    public Category category;
+    public Category category = null;
     public String manufacturer;
     public BigDecimal price;
     public BigDecimal originalPrice;
@@ -19,7 +20,7 @@ public class Product {
     public List<String> images;
     public String metaTitle;
     public String metaDescription;
-    public List<Variant> variants;
+    public List<Variant> variants = new ArrayList<>();
 
     public List<Variant> getVariants() {
         return variants;
