@@ -165,204 +165,234 @@ public class ExcelReadingWriting {
         FileInputStream file = new FileInputStream(new File("temp.xlsx"));
         Workbook workbook = new XSSFWorkbook(file);
         Sheet sheet = workbook.getSheetAt(0);
-        int i = 0;
         List<Product> products = new ArrayList<>();
         boolean isFirsRow = true;
-        for (Row row : sheet) {
-            if (isFirsRow){
-                isFirsRow = false;
-                continue;
-            }
-            Product product = new Product();
-            for (int j = 0; j < row.getPhysicalNumberOfCells(); j++) {
-                Cell cell = row.getCell(j);
-                if (cell.getColumnIndex() == 0){
-                    switch (cell.getCellType()) {
-                        case STRING:
-                            product.setId(cell.getStringCellValue());
-                            //System.out.println(product.getId());
-                            break;
-                        case NUMERIC:
-                            product.setId(String.valueOf(cell.getNumericCellValue()));
-                            //System.out.println(product.getId());
-                            break;
-                        default: break;
+        try {
+            for (Row row : sheet) {
+                if (isFirsRow){
+                    isFirsRow = false;
+                    continue;
+                }
+                Product product = new Product();
+                try {
+                    for (int j = 0; j < row.getPhysicalNumberOfCells(); j++) {
+                        Cell cell = row.getCell(j);
+                        if (cell != null) {
+                            if (cell.getColumnIndex() == 0) {
+                                switch (cell.getCellType()) {
+                                    case STRING:
+                                        product.setId(cell.getStringCellValue());
+                                        //System.out.println(product.getId());
+                                        break;
+                                    case NUMERIC:
+                                        product.setId(String.valueOf(cell.getNumericCellValue()));
+                                        //System.out.println(product.getId());
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            if (cell.getColumnIndex() == 1) {
+                                switch (cell.getCellType()) {
+                                    case STRING:
+                                        product.setProductCode(cell.getStringCellValue());
+                                        //System.out.println(product.getProductCode());
+                                        break;
+                                    case NUMERIC:
+                                        product.setProductCode(String.valueOf(cell.getNumericCellValue()));
+                                        //System.out.println(product.getProductCode());
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            if (cell.getColumnIndex() == 2) {
+                                switch (cell.getCellType()) {
+                                    case STRING:
+                                        product.setBarCode(cell.getStringCellValue());
+                                        //System.out.println(product.getBarCode());
+                                        break;
+                                    case NUMERIC:
+                                        product.setBarCode(String.valueOf(cell.getNumericCellValue()));
+                                        //System.out.println(product.getBarCode());
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            if (cell.getColumnIndex() == 3) {
+                                switch (cell.getCellType()) {
+                                    case STRING:
+                                        product.setTitle(cell.getStringCellValue());
+                                        //System.out.println(product.getId());
+                                        break;
+                                    case NUMERIC:
+                                        product.setTitle(String.valueOf(cell.getNumericCellValue()));
+                                        //System.out.println(product.getTitle());
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            if (cell.getColumnIndex() == 4) {
+                                switch (cell.getCellType()) {
+                                    case STRING:
+                                        product.setShortDescription(cell.getStringCellValue());
+                                        //System.out.println(product.getShortDescription());
+                                        break;
+                                    case NUMERIC:
+                                        product.setShortDescription(String.valueOf(cell.getNumericCellValue()));
+                                        //System.out.println(product.getShortDescription());
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            if (cell.getColumnIndex() == 5) {
+                                switch (cell.getCellType()) {
+                                    case STRING:
+                                        product.setDescription(cell.getStringCellValue());
+                                        //System.out.println(product.getDescription());
+                                        break;
+                                    case NUMERIC:
+                                        product.setDescription(String.valueOf(cell.getNumericCellValue()));
+                                        //System.out.println(product.getDescription());
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            if (cell.getColumnIndex() == 6) {
+                                switch (cell.getCellType()) {
+                                    case STRING:
+                                        product.setUrl(cell.getStringCellValue());
+                                        //System.out.println(product.getUrl());
+                                        break;
+                                    case NUMERIC:
+                                        product.setUrl(String.valueOf(cell.getNumericCellValue()));
+                                        //System.out.println(product.getUrl());
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            if (cell.getColumnIndex() == 7) {
+                                if (cell.getStringCellValue() != null && !cell.getStringCellValue().equalsIgnoreCase("")) {
+                                    String s = cell.getStringCellValue();
+                                    String[] excelCategoryString = s.trim().split("<");
+                                    String categoryName = excelCategoryString[0];
+                                    if (s == null && !s.equalsIgnoreCase("")) {
+                                        break;
+                                    }
+                                    else if (excelCategoryString[1] != null && !excelCategoryString[1].equalsIgnoreCase("")) {
+                                        String parentName = excelCategoryString[1];
+                                        Category parentCat = new Category(parentName);
+                                        Category category = new Category(categoryName, parentCat);
+                                        product.setCategory(category);
+                                    } else {
+                                        Category category = new Category(categoryName);
+                                        product.setCategory(category);
+                                    }
+                                    //System.out.println(product.getCategory().toString());
+                                }
+                            }
+                            if (cell.getColumnIndex() == 8) {
+                                switch (cell.getCellType()) {
+                                    case STRING:
+                                        product.setManufacturer(cell.getStringCellValue());
+                                        //System.out.println(product.getManufacturer());
+                                        break;
+                                    case NUMERIC:
+                                        product.setManufacturer(String.valueOf(cell.getNumericCellValue()));
+                                        // System.out.println(product.getManufacturer());
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            if (cell.getColumnIndex() == 9) {
+                                switch (cell.getCellType()) {
+                                    case STRING:
+                                        product.setPrice(BigDecimal.valueOf(Double.parseDouble(cell.getStringCellValue())));
+                                        //System.out.println(product.getPrice().toString());
+                                        break;
+                                    case NUMERIC:
+                                        product.setPrice(BigDecimal.valueOf(cell.getNumericCellValue()));
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            if (cell.getColumnIndex() == 10) {
+                                switch (cell.getCellType()) {
+                                    case STRING:
+                                        product.setOriginalPrice(BigDecimal.valueOf(Double.parseDouble(cell.getStringCellValue())));
+                                        //System.out.println(product.getPrice().toString());
+                                        break;
+                                    case NUMERIC:
+                                        product.setOriginalPrice(BigDecimal.valueOf(cell.getNumericCellValue()));
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            if (cell.getColumnIndex() == 11) {
+                                product.setStatus(cell.getStringCellValue());
+                                // System.out.println(product.getStatus());
+                            }
+                            if (cell.getColumnIndex() == 12) {
+                                String neshtoZaKartinki = cell.getStringCellValue().replace("[", "").replace("]", "");
+                                String[] neshtoSiMsiv = neshtoZaKartinki.trim().split(",");
+                                List<String> images = new ArrayList<>();
+                                for (int m = 0; m < neshtoSiMsiv.length; m++) {
+                                    images.add(neshtoSiMsiv[m]);
+                                }
+                                product.setImages(images);
+                                //System.out.println(product.getImages().toString());
+                            }
+                            if (cell.getColumnIndex() == 13) {
+                                product.setMetaTitle(cell.getStringCellValue());
+                                //System.out.println(product.getMetaTitle());
+                            }
+                            if (cell.getColumnIndex() == 14) {
+                                product.setMetaDescription(cell.getStringCellValue());
+                                //System.out.println(product.getMetaDescription());
+                            }
+                            if (cell.getColumnIndex() == 15) {
+                                if (cell.getStringCellValue() != null && !cell.getStringCellValue().equalsIgnoreCase("") && !cell.getStringCellValue().equalsIgnoreCase("[]")) {
+                                    String excelVariantString = cell.getStringCellValue().trim();
+                                    String nov = excelVariantString.trim().replace("[", "").replace("]", "").replaceAll(", ", "");
+                                    String[] variantsArr = nov.trim().split(";");
+                                    List<Variant> variants = new ArrayList<>();
+                                    for (int n = 0; n < variantsArr.length; n++) {
+                                        Variant variant = new Variant();
+                                        String[] varData = variantsArr[n].trim().split(",");
+                                        variant.setId(varData[0]);
+                                        variant.setKey(varData[1]);
+                                        variant.setStockStatus(varData[2]);
+                                        variant.setValue(varData[3]);
+                                        variant.setPrice(BigDecimal.valueOf(Double.parseDouble(varData[4])));
+                                        variants.add(variant);
+                                    }
+                                    product.setVariants(variants);
+                                }
+                            }
+                            if (cell.getColumnIndex() > 15) {
+                                break;
+                            }
                         }
                     }
-                if (cell.getColumnIndex() == 1){
-                    switch (cell.getCellType()) {
-                        case STRING:
-                            product.setProductCode(cell.getStringCellValue());
-                            //System.out.println(product.getProductCode());
-                            break;
-                        case NUMERIC:
-                            product.setProductCode(String.valueOf(cell.getNumericCellValue()));
-                            //System.out.println(product.getProductCode());
-                            break;
-                        default: break;
-                    }
-                }
-                if (cell.getColumnIndex() == 2){
-                    switch (cell.getCellType()) {
-                        case STRING:
-                            product.setBarCode(cell.getStringCellValue());
-                            //System.out.println(product.getBarCode());
-                            break;
-                        case NUMERIC:
-                            product.setBarCode(String.valueOf(cell.getNumericCellValue()));
-                            //System.out.println(product.getBarCode());
-                            break;
-                        default: break;
-                    }
-                }
-                if (cell.getColumnIndex() == 3){
-                    switch (cell.getCellType()) {
-                        case STRING:
-                            product.setTitle(cell.getStringCellValue());
-                            //System.out.println(product.getId());
-                            break;
-                        case NUMERIC:
-                            product.setTitle(String.valueOf(cell.getNumericCellValue()));
-                            //System.out.println(product.getTitle());
-                            break;
-                        default: break;
-                    }
-                }
-                if (cell.getColumnIndex() == 4){
-                    switch (cell.getCellType()) {
-                        case STRING:
-                            product.setShortDescription(cell.getStringCellValue());
-                            //System.out.println(product.getShortDescription());
-                            break;
-                        case NUMERIC:
-                            product.setShortDescription(String.valueOf(cell.getNumericCellValue()));
-                            //System.out.println(product.getShortDescription());
-                            break;
-                        default: break;
-                    }
-                }
-                if (cell.getColumnIndex() == 5){
-                    switch (cell.getCellType()) {
-                        case STRING:
-                            product.setDescription(cell.getStringCellValue());
-                            //System.out.println(product.getDescription());
-                            break;
-                        case NUMERIC:
-                            product.setDescription(String.valueOf(cell.getNumericCellValue()));
-                            //System.out.println(product.getDescription());
-                            break;
-                        default: break;
-                    }
-                }
-                if (cell.getColumnIndex() == 6){
-                    switch (cell.getCellType()) {
-                        case STRING:
-                            product.setUrl(cell.getStringCellValue());
-                            //System.out.println(product.getUrl());
-                            break;
-                        case NUMERIC:
-                            product.setUrl(String.valueOf(cell.getNumericCellValue()));
-                            //System.out.println(product.getUrl());
-                            break;
-                        default: break;
-                    }
-                }
-                if (cell.getColumnIndex() == 7){
-                    if (cell.getStringCellValue() != null && !cell.getStringCellValue().equalsIgnoreCase("")) {
-                        String s = cell.getStringCellValue();
-                        String[] excelCategoryString = s.trim().split("<");
-                        String categoryName = excelCategoryString[0];
-                        String parentName = excelCategoryString[1];
-                        Category category = new Category(categoryName, parentName);
-                        product.setCategory(category);
-                        //System.out.println(product.getCategory().toString());
-                    }
-                }
-                if (cell.getColumnIndex() == 8){
-                    switch (cell.getCellType()) {
-                        case STRING:
-                            product.setManufacturer(cell.getStringCellValue());
-                            //System.out.println(product.getManufacturer());
-                            break;
-                        case NUMERIC:
-                            product.setManufacturer(String.valueOf(cell.getNumericCellValue()));
-                           // System.out.println(product.getManufacturer());
-                            break;
-                        default: break;
-                    }
-                }
-                if (cell.getColumnIndex() == 9){
-                    switch (cell.getCellType()) {
-                        case STRING:
-                            product.setPrice(BigDecimal.valueOf(Double.parseDouble(cell.getStringCellValue())));
-                            //System.out.println(product.getPrice().toString());
-                            break;
-                        case NUMERIC:
-                            product.setPrice(BigDecimal.valueOf(cell.getNumericCellValue()));
-                            break;
-                        default: break;
-                    }
-                }
-                if (cell.getColumnIndex() == 10){
-                    switch (cell.getCellType()) {
-                        case STRING:
-                            product.setOriginalPrice(BigDecimal.valueOf(Double.parseDouble(cell.getStringCellValue())));
-                            //System.out.println(product.getPrice().toString());
-                            break;
-                        case NUMERIC:
-                            product.setOriginalPrice(BigDecimal.valueOf(cell.getNumericCellValue()));
-                            break;
-                        default: break;
-                    }
-                }
-                if (cell.getColumnIndex() == 11){
-                    product.setStatus(cell.getStringCellValue());
-                   // System.out.println(product.getStatus());
-                }
-                if (cell.getColumnIndex() == 12){
-                    String neshtoZaKartinki = cell.getStringCellValue().replace("[", "").replace("]", "");
-                    String[] neshtoSiMsiv = neshtoZaKartinki.trim().split(",");
-                    List<String> images = new ArrayList<>();
-                    for(int m = 0; m < neshtoSiMsiv.length ; m++) {
-                        images.add(neshtoSiMsiv[m]);
-                    }
-                    product.setImages(images);
-                    //System.out.println(product.getImages().toString());
-                }
-                if (cell.getColumnIndex() == 13){
-                    product.setMetaTitle(cell.getStringCellValue());
-                    //System.out.println(product.getMetaTitle());
-                }
-                if (cell.getColumnIndex() == 14){
-                    product.setMetaDescription(cell.getStringCellValue());
-                    //System.out.println(product.getMetaDescription());
-                }
-                if (cell.getColumnIndex() == 15){
-                    if (cell.getStringCellValue() != null && !cell.getStringCellValue().equalsIgnoreCase("") && !cell.getStringCellValue().equalsIgnoreCase("[]")) {
-                        String excelVariantString = cell.getStringCellValue().trim();
-                        String nov = excelVariantString.trim().replace("[", "").replace("]", "").replaceAll(", ", "");
-                        String[] variantsArr = nov.trim().split(";");
-                        List<Variant> variants = new ArrayList<>();
-                        for (int n = 0; n < variantsArr.length; n++){
-                            Variant variant = new Variant();
-                            String[] varData = variantsArr[n].trim().split(",");
-                            variant.setId(varData[0]);
-                            variant.setKey(varData[1]);
-                            variant.setStockStatus(varData[2]);
-                            variant.setValue(varData[3]);
-                            variant.setPrice(BigDecimal.valueOf(Double.parseDouble(varData[4])));
-                            variants.add(variant);
-                        }
-                        product.setVariants(variants);
-                    }
-                }
-                if (cell.getColumnIndex() > 15){
-                    break;
+                    System.out.println(String.format("ROW [%d] [%s] [%s] [%s] [%s]", row.getRowNum(), product.getId(), product.getProductCode(), product.getCategory(), product.getVariants()));
+                    products.add(product);
+                } catch (Exception e) {
+                    System.out.println("Error reading row " + row.getRowNum());
+                    e.printStackTrace();
                 }
             }
-            System.out.println(product.toString());
-            products.add(product);
-            i++;
+        }
+        catch (Exception e) {
+            System.out.println("Error reading sheet");
+            e.printStackTrace();
         }
     }
 }
