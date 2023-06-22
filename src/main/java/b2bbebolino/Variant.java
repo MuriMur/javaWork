@@ -51,6 +51,6 @@ public class Variant {
 
     @Override
     public String toString() {
-        return id + ", " + key + ", " + stockStatus + ", " + value + ", " + price +  "; ";
+        return id + "," + key + "," + stockStatus + "," + value + "," + price +  ";";
     }
 }

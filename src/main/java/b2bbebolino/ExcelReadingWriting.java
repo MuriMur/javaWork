@@ -6,10 +6,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ExcelReadingWriting {
     public static void writeExcel(List<Product> products) throws IOException {
@@ -183,11 +180,11 @@ public class ExcelReadingWriting {
                     switch (cell.getCellType()) {
                         case STRING:
                             product.setId(cell.getStringCellValue());
-                            System.out.println(product.getId());
+                            //System.out.println(product.getId());
                             break;
                         case NUMERIC:
                             product.setId(String.valueOf(cell.getNumericCellValue()));
-                            System.out.println(product.getId());
+                            //System.out.println(product.getId());
                             break;
                         default: break;
                         }
@@ -196,11 +193,11 @@ public class ExcelReadingWriting {
                     switch (cell.getCellType()) {
                         case STRING:
                             product.setProductCode(cell.getStringCellValue());
-                            System.out.println(product.getProductCode());
+                            //System.out.println(product.getProductCode());
                             break;
                         case NUMERIC:
                             product.setProductCode(String.valueOf(cell.getNumericCellValue()));
-                            System.out.println(product.getProductCode());
+                            //System.out.println(product.getProductCode());
                             break;
                         default: break;
                     }
@@ -209,11 +206,11 @@ public class ExcelReadingWriting {
                     switch (cell.getCellType()) {
                         case STRING:
                             product.setBarCode(cell.getStringCellValue());
-                            System.out.println(product.getBarCode());
+                            //System.out.println(product.getBarCode());
                             break;
                         case NUMERIC:
                             product.setBarCode(String.valueOf(cell.getNumericCellValue()));
-                            System.out.println(product.getBarCode());
+                            //System.out.println(product.getBarCode());
                             break;
                         default: break;
                     }
@@ -222,11 +219,11 @@ public class ExcelReadingWriting {
                     switch (cell.getCellType()) {
                         case STRING:
                             product.setTitle(cell.getStringCellValue());
-                            System.out.println(product.getId());
+                            //System.out.println(product.getId());
                             break;
                         case NUMERIC:
                             product.setTitle(String.valueOf(cell.getNumericCellValue()));
-                            System.out.println(product.getTitle());
+                            //System.out.println(product.getTitle());
                             break;
                         default: break;
                     }
@@ -235,11 +232,11 @@ public class ExcelReadingWriting {
                     switch (cell.getCellType()) {
                         case STRING:
                             product.setShortDescription(cell.getStringCellValue());
-                            System.out.println(product.getShortDescription());
+                            //System.out.println(product.getShortDescription());
                             break;
                         case NUMERIC:
                             product.setShortDescription(String.valueOf(cell.getNumericCellValue()));
-                            System.out.println(product.getShortDescription());
+                            //System.out.println(product.getShortDescription());
                             break;
                         default: break;
                     }
@@ -248,11 +245,11 @@ public class ExcelReadingWriting {
                     switch (cell.getCellType()) {
                         case STRING:
                             product.setDescription(cell.getStringCellValue());
-                            System.out.println(product.getDescription());
+                            //System.out.println(product.getDescription());
                             break;
                         case NUMERIC:
                             product.setDescription(String.valueOf(cell.getNumericCellValue()));
-                            System.out.println(product.getDescription());
+                            //System.out.println(product.getDescription());
                             break;
                         default: break;
                     }
@@ -261,34 +258,35 @@ public class ExcelReadingWriting {
                     switch (cell.getCellType()) {
                         case STRING:
                             product.setUrl(cell.getStringCellValue());
-                            System.out.println(product.getUrl());
+                            //System.out.println(product.getUrl());
                             break;
                         case NUMERIC:
                             product.setUrl(String.valueOf(cell.getNumericCellValue()));
-                            System.out.println(product.getUrl());
+                            //System.out.println(product.getUrl());
                             break;
                         default: break;
                     }
                 }
                 if (cell.getColumnIndex() == 7){
                     if (cell.getStringCellValue() != null && !cell.getStringCellValue().equalsIgnoreCase("")) {
-                        String[] excelCategoryString = cell.getStringCellValue().trim().split("<");
+                        String s = cell.getStringCellValue();
+                        String[] excelCategoryString = s.trim().split("<");
                         String categoryName = excelCategoryString[0];
                         String parentName = excelCategoryString[1];
                         Category category = new Category(categoryName, parentName);
                         product.setCategory(category);
-                        System.out.println(product.getCategory().toString());
+                        //System.out.println(product.getCategory().toString());
                     }
                 }
                 if (cell.getColumnIndex() == 8){
                     switch (cell.getCellType()) {
                         case STRING:
                             product.setManufacturer(cell.getStringCellValue());
-                            System.out.println(product.getManufacturer());
+                            //System.out.println(product.getManufacturer());
                             break;
                         case NUMERIC:
                             product.setManufacturer(String.valueOf(cell.getNumericCellValue()));
-                            System.out.println(product.getManufacturer());
+                           // System.out.println(product.getManufacturer());
                             break;
                         default: break;
                     }
@@ -297,7 +295,7 @@ public class ExcelReadingWriting {
                     switch (cell.getCellType()) {
                         case STRING:
                             product.setPrice(BigDecimal.valueOf(Double.parseDouble(cell.getStringCellValue())));
-                            System.out.println(product.getPrice().toString());
+                            //System.out.println(product.getPrice().toString());
                             break;
                         case NUMERIC:
                             product.setPrice(BigDecimal.valueOf(cell.getNumericCellValue()));
@@ -309,7 +307,7 @@ public class ExcelReadingWriting {
                     switch (cell.getCellType()) {
                         case STRING:
                             product.setOriginalPrice(BigDecimal.valueOf(Double.parseDouble(cell.getStringCellValue())));
-                            System.out.println(product.getPrice().toString());
+                            //System.out.println(product.getPrice().toString());
                             break;
                         case NUMERIC:
                             product.setOriginalPrice(BigDecimal.valueOf(cell.getNumericCellValue()));
@@ -319,33 +317,33 @@ public class ExcelReadingWriting {
                 }
                 if (cell.getColumnIndex() == 11){
                     product.setStatus(cell.getStringCellValue());
-                    System.out.println(product.getStatus());
+                   // System.out.println(product.getStatus());
                 }
                 if (cell.getColumnIndex() == 12){
-                    String neshtoZaKartinki = cell.getStringCellValue();
-                    neshtoZaKartinki.replace("[", "").replace("]", "");
+                    String neshtoZaKartinki = cell.getStringCellValue().replace("[", "").replace("]", "");
                     String[] neshtoSiMsiv = neshtoZaKartinki.trim().split(",");
                     List<String> images = new ArrayList<>();
-                    images.add(neshtoSiMsiv[0]);
-                    images.add(neshtoSiMsiv[1]);
+                    for(int m = 0; m < neshtoSiMsiv.length ; m++) {
+                        images.add(neshtoSiMsiv[m]);
+                    }
                     product.setImages(images);
-                    System.out.println(product.getImages().toString());
+                    //System.out.println(product.getImages().toString());
                 }
                 if (cell.getColumnIndex() == 13){
                     product.setMetaTitle(cell.getStringCellValue());
-                    System.out.println(product.getMetaTitle());
+                    //System.out.println(product.getMetaTitle());
                 }
                 if (cell.getColumnIndex() == 14){
                     product.setMetaDescription(cell.getStringCellValue());
-                    System.out.println(product.getMetaDescription());
+                    //System.out.println(product.getMetaDescription());
                 }
                 if (cell.getColumnIndex() == 15){
-                    if (cell.getStringCellValue() != null && !cell.getStringCellValue().equalsIgnoreCase("")) {
+                    if (cell.getStringCellValue() != null && !cell.getStringCellValue().equalsIgnoreCase("") && !cell.getStringCellValue().equalsIgnoreCase("[]")) {
                         String excelVariantString = cell.getStringCellValue().trim();
-                        String nov = excelVariantString.trim().replace("[", "").replace("]", "");
+                        String nov = excelVariantString.trim().replace("[", "").replace("]", "").replaceAll(", ", "");
                         String[] variantsArr = nov.trim().split(";");
                         List<Variant> variants = new ArrayList<>();
-                        for (int n = 0; n < variantsArr.length - 1; n++){
+                        for (int n = 0; n < variantsArr.length; n++){
                             Variant variant = new Variant();
                             String[] varData = variantsArr[n].trim().split(",");
                             variant.setId(varData[0]);
