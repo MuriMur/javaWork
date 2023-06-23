@@ -167,6 +167,8 @@ public class ExcelReadingWriting {
         Sheet sheet = workbook.getSheetAt(0);
         List<Product> products = new ArrayList<>();
         boolean isFirsRow = true;
+        List<Category> categories = new ArrayList<>();
+        List<Product> productsInCategory = new ArrayList<>();
         try {
             for (Row row : sheet) {
                 if (isFirsRow){
@@ -281,17 +283,21 @@ public class ExcelReadingWriting {
                                     String s = cell.getStringCellValue();
                                     String[] excelCategoryString = s.trim().split("<");
                                     String categoryName = excelCategoryString[0];
+                                    Category category;
                                     if (s == null && !s.equalsIgnoreCase("")) {
                                         break;
                                     }
                                     else if (excelCategoryString[1] != null && !excelCategoryString[1].equalsIgnoreCase("")) {
                                         String parentName = excelCategoryString[1];
                                         Category parentCat = new Category(parentName);
-                                        Category category = new Category(categoryName, parentCat);
+                                        category = new Category(categoryName, parentCat);
                                         product.setCategory(category);
                                     } else {
-                                        Category category = new Category(categoryName);
+                                        category = new Category(categoryName);
                                         product.setCategory(category);
+                                    }
+                                    if (!categories.contains(category)) {
+                                        categories.add(category);
                                     }
                                     //System.out.println(product.getCategory().toString());
                                 }

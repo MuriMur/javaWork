@@ -1,9 +1,21 @@
 package b2bbebolino;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Category {
     public String name = "";
     public String urlAddress = "";
     public Category parent = null;
+    List<Product> productsOfCategory = new ArrayList<>();
+
+    public List<Product> getProductsOfCategory() {
+        return productsOfCategory;
+    }
+
+    public void setProductsOfCategory(List<Product> productsOfCategory) {
+        this.productsOfCategory = productsOfCategory;
+    }
 
     public Category(String name) {
         this.name = name;
