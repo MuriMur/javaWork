@@ -1,0 +1,41 @@
+the team Alaves has win streak of 0 and has 30 percentage chance to win the next game
+the team Ath Bilbao has win streak of 0 and has 30 percentage chance to win the next game
+the team Atl. Madrid has win streak of 1 and has 40 percentage chance to win the next game
+the team Barcelona has win streak of 0 and has 30 percentage chance to win the next game
+the team Betis has win streak of 0 and has 30 percentage chance to win the next game
+the team Cadiz CF has win streak of 1 and has 40 percentage chance to win the next game
+the team Celta Vigo has win streak of 0 and has 30 percentage chance to win the next game
+the team Elche has win streak of 1 and has 40 percentage chance to win the next game
+the team Espanyol has win streak of 0 and has 30 percentage chance to win the next game
+the team Getafe has win streak of 0 and has 30 percentage chance to win the next game
+the team Granada CF has win streak of 0 and has 30 percentage chance to win the next game
+the team Levante has win streak of 2 and has 50 percentage chance to win the next game
+the team Mallorca has win streak of 2 and has 50 percentage chance to win the next game
+the team Osasuna has win streak of 0 and has 30 percentage chance to win the next game
+the team Rayo Vallecano has win streak of 0 and has 30 percentage chance to win the next game
+the team Real Madrid has win streak of 0 and has 30 percentage chance to win the next game
+the team Real Sociedad has win streak of 0 and has 30 percentage chance to win the next game
+the team Sevilla has win streak of 1 and has 40 percentage chance to win the next game
+the team Valencia has win streak of 1 and has 40 percentage chance to win the next game
+the team Villarreal has win streak of 1 and has 40 percentage chance to win the next game
+
+the team Alaves has 80% chance to draw in next match
+the team Ath Bilbao has 10% chance to draw in next match
+the team Atl. Madrid has 10% chance to draw in next match
+the team Barcelona has 10% chance to draw in next match
+the team Betis has 10% chance to draw in next match
+the team Cadiz CF has 10% chance to draw in next match
+the team Celta Vigo has 10% chance to draw in next match
+the team Elche has 10% chance to draw in next match
+the team Espanyol has 10% chance to draw in next match
+the team Getafe has 10% chance to draw in next match
+the team Granada CF has 10% chance to draw in next match
+the team Levante has 10% chance to draw in next match
+the team Mallorca has 10% chance to draw in next match
+the team Osasuna has 10% chance to draw in next match
+the team Rayo Vallecano has 10% chance to draw in next match
+the team Real Madrid has 10% chance to draw in next match
+the team Real Sociedad has 10% chance to draw in next match
+the team Sevilla has 10% chance to draw in next match
+the team Valencia has 10% chance to draw in next match
+the team Villarreal has 10% chance to draw in next match

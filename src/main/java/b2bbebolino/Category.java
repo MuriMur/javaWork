@@ -7,7 +7,7 @@ public class Category {
     public String name = "";
     public String urlAddress = "";
     public Category parent = null;
-    List<Product> productsOfCategory = new ArrayList<>();
+    List<Product> productsOfCategory;
 
     public List<Product> getProductsOfCategory() {
         return productsOfCategory;
@@ -19,11 +19,13 @@ public class Category {
 
     public Category(String name) {
         this.name = name;
+        productsOfCategory = new ArrayList<>();
     }
 
     public Category(String name, Category parent) {
         this.name = name;
         this.parent = parent;
+        productsOfCategory = new ArrayList<>();
     }
 
     public Category(String name, String urlAddress) {
@@ -61,6 +63,9 @@ public class Category {
         this.parent = parent;
     }
 
+    public void addProduct(Product product){
+        productsOfCategory.add(product);
+    }
     @Override
     public String toString() {
         if (parent != null){
