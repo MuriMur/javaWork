@@ -3,7 +3,6 @@ package b2bbebolino;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import java.io.*;
 import java.math.BigDecimal;
 import java.util.*;
@@ -169,6 +168,7 @@ public class ExcelReadingWriting {
         boolean isFirsRow = true;
         List<Category> categories = new ArrayList<>();
         List<Product> productsInCategory = new ArrayList<>();
+        HashMap<String, Category> categoriesProducts = new HashMap<>();
         try {
             for (Row row : sheet) {
                 if (isFirsRow){
@@ -291,6 +291,13 @@ public class ExcelReadingWriting {
                                         String parentName = excelCategoryString[1];
                                         Category parentCat = new Category(parentName);
                                         category = new Category(categoryName, parentCat);
+                                        String categoryKey = category.getName().toLowerCase();
+                                        Category prodCat = categoriesProducts.get(categoryKey);
+                                        if (prodCat == null){
+                                            prodCat = category;
+                                            categoriesProducts.put(categoryKey, prodCat);
+                                        }
+                                        prodCat.addProduct(product);
                                         product.setCategory(category);
                                     } else {
                                         category = new Category(categoryName);
@@ -395,10 +402,20 @@ public class ExcelReadingWriting {
                     e.printStackTrace();
                 }
             }
+
         }
         catch (Exception e) {
             System.out.println("Error reading sheet");
             e.printStackTrace();
         }
+        for (Category cat : categoriesProducts.values()){
+            System.out.println("++++++++++++++");
+            System.out.println(cat.getName());
+            System.out.println("++++++++++++++");
+            for (Product prod : cat.getProductsOfCategory()){
+                System.out.println(prod.getTitle());
+            }
+        }
+        workbook.close();
     }
 }
