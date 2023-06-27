@@ -2,6 +2,7 @@ package b2bbebolino;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Category {
     public String name = "";
@@ -11,6 +12,19 @@ public class Category {
 
     public List<Product> getProductsOfCategory() {
         return productsOfCategory;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Category category = (Category) o;
+        return name.equals(category.name) && this.toString().equals(category.toString());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, parent);
     }
 
     public void setProductsOfCategory(List<Product> productsOfCategory) {

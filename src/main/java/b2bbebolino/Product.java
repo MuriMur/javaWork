@@ -2,6 +2,7 @@ package b2bbebolino;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Product {
     public String id = "";
@@ -21,6 +22,34 @@ public class Product {
     public String metaTitle;
     public String metaDescription;
     public List<Variant> variants = new ArrayList<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(id, product.id) &&
+                Objects.equals(productCode, product.productCode) &&
+                Objects.equals(barCode, product.barCode) &&
+                Objects.equals(title, product.title) &&
+                Objects.equals(shortDescription, product.shortDescription) &&
+                Objects.equals(description, product.description) &&
+                Objects.equals(url, product.url) &&
+                Objects.equals(category, product.category) &&
+                Objects.equals(manufacturer, product.manufacturer) &&
+                Objects.equals(price, product.price) &&
+                Objects.equals(originalPrice, product.originalPrice) &&
+                Objects.equals(status, product.status) &&
+                Objects.equals(images, product.images) &&
+                Objects.equals(metaTitle, product.metaTitle) &&
+                Objects.equals(metaDescription, product.metaDescription) &&
+                Objects.equals(variants, product.variants);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, productCode, barCode, title, shortDescription, description, url, category, manufacturer, price, originalPrice, status, images, metaTitle, metaDescription, variants);
+    }
 
     public List<Variant> getVariants() {
         return variants;

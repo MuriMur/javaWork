@@ -4,8 +4,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+// TODO Rename this class to LaLigaFormulas ili neshto takova
 public class LaLigaPlusProblems {
+    // TODO Make this return the actual odds, and also explain the logic in a comment
     public static String calcXOdds(String[][] arr, String s) throws FileNotFoundException {
         //PrintStream fileWriter = new PrintStream("export2.txt");
         StringBuilder sb = new StringBuilder();
@@ -42,6 +43,7 @@ public class LaLigaPlusProblems {
         return sb.toString();
     }
 
+    // TODO Make this return the actual odds, and also explain the logic in a comment
     public static String calcWinOdds(String[][] arr, String s) throws FileNotFoundException {
         //PrintStream fileWriter = new PrintStream("export.txt");
         int rowCount = 0;
@@ -70,6 +72,7 @@ public class LaLigaPlusProblems {
         return sb.toString();
     }
 
+    // TODO Make this a generic function which works for any symbol (DONE), and which returns the result
     public static void countSymbolForTeam(String[][] arr, String s){
         int maxCount = Integer.MIN_VALUE;
         int rowCount = 0;
@@ -89,10 +92,9 @@ public class LaLigaPlusProblems {
         System.out.printf("the team with most %s's is %s with: %d %s's\n",s ,arr[rowNumber][0], maxCount, s );
     }
 
-
+    // TODO Make this a generic function which works for any symbol, and which returns the result
     public static void findMaxColX(String[][] arr){
         int maxCount = Integer.MIN_VALUE;
-        Integer.max(2, 1);
         int colCount = 0;
         int colNumber = 0;
         for (int col = 1; col < arr[0].length; col++) {

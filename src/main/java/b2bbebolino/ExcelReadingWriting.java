@@ -159,6 +159,13 @@ public class ExcelReadingWriting {
         workbook.write(outputStream);
         workbook.close();
     }
+    public static List<Category> loadCategories(Category category){
+        List<Category> categories = new ArrayList<>();
+        if (!categories.contains(category)){
+            categories.add(category);
+        }
+        return categories;
+    }
 
     public static void readExcel() throws IOException {
         FileInputStream file = new FileInputStream(new File("temp.xlsx"));
@@ -299,12 +306,16 @@ public class ExcelReadingWriting {
                                         }
                                         prodCat.addProduct(product);
                                         product.setCategory(category);
-                                    } else {
+                                        if (!categories.contains(category)) {
+                                            categories.add(category);
+                                        }
+                                    }
+                                    else {
                                         category = new Category(categoryName);
                                         product.setCategory(category);
-                                    }
-                                    if (!categories.contains(category)) {
-                                        categories.add(category);
+                                        if (!categories.contains(category)){
+                                            categories.add(category);
+                                        }
                                     }
                                     //System.out.println(product.getCategory().toString());
                                 }
@@ -408,14 +419,49 @@ public class ExcelReadingWriting {
             System.out.println("Error reading sheet");
             e.printStackTrace();
         }
-        for (Category cat : categoriesProducts.values()){
-            System.out.println("++++++++++++++");
-            System.out.println(cat.getName());
-            System.out.println("++++++++++++++");
-            for (Product prod : cat.getProductsOfCategory()){
-                System.out.println(prod.getTitle());
+//        for (Category cat : categoriesProducts.values()){
+//            System.out.println("++++++++++++++");
+//            System.out.println(cat.getName());
+//            System.out.println("--------------");
+//            for (Product prod : cat.getProductsOfCategory()){
+//                System.out.println(prod.getTitle());
+//            }
+//        }
+        for (Category cat : categories
+             ) {
+            System.out.println("-------------");
+            System.out.println("Category : " + cat.getName());
+            System.out.println("-------------");
+            List<Product> neshtoProduct = new ArrayList<>();
+            neshtoProduct = storeProducts(cat, products);
+            if (neshtoProduct != null) {
+                for (Product prod : neshtoProduct) {
+                    System.out.println(prod.getTitle());
+                }
             }
         }
         workbook.close();
     }
+
+    public static List<Product> storeProducts(Category category, List<Product> productList){
+        List<Product> productsInThisCategory = new ArrayList<>();
+        if (productList != null) {
+            for (Product product : productList) {
+                if (product.getCategory() != null && product.getCategory().equals(category) &&  !product.getCategory().getName().equals("")) {
+                    productsInThisCategory.add(product);
+                }
+            }
+        }
+        return productsInThisCategory;
+    }
+
+    public static void loadCategory(Category category){
+
+    }
+    public static void printProducts(List<Product> products){
+        for (int i = 0; i < products.size(); i++){
+            System.out.println(products.get(i));
+        }
+    }
+
 }
