@@ -11,6 +11,15 @@ public class Game {
     private String date;
     private Team host;
     private Team guest;
+    private char winner;
+
+    public char getWinner() {
+        return winner;
+    }
+
+    public void setWinner(char winner) {
+        this.winner = winner;
+    }
 
     @Override
     public String toString() {

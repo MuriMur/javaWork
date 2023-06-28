@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Team {
-    private List<String> results = new ArrayList<>();
+    private List<Character> results = new ArrayList<>();
     private String name;
 
     @Override
@@ -22,12 +22,16 @@ public class Team {
     }
 
 
-    public List<String> getResults() {
+    public List<Character> getResults() {
         return results;
     }
 
-    public void setResults(List<String> results) {
+    public void setResults(List<Character> results) {
         this.results = results;
+    }
+
+    public void addResult(char c){
+        results.add(c);
     }
 
     public String getName() {

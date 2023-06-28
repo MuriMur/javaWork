@@ -6,13 +6,14 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 public class NewLaliga {
     public static void main() throws IOException {
-        HashMap<String, List<String>> laLigaTable = new HashMap<>();
         // TODO Exception if connection is not successful
         Document doc = null;
         try {
@@ -20,40 +21,16 @@ public class NewLaliga {
         } catch (Exception e) {
             System.out.println("page not found");
         }
-        Elements teamElements = doc.select("#js-leagueresults-all table tr .h-text-left span");
-        Elements results = doc.select("#js-leagueresults-all table tr .h-text-center a ");
-//        for (Element team : teams) {
-//            log(team.text());
-//        }
-        Element teamHostElement;
-
         League league = new League();
         Game game;
         List<Round> rounds = new ArrayList<>();
-        Team team;
         List<Team> teams = new ArrayList<>();
-        Round roundObj = null;
-        Element teamGuest = null;
-        List<String> teamHostResults = null;
-        List<String> teamGuestResults = null;
-        int index = 0;
-        Element trRound = null;
-        Elements siblings = null;
-        String roundName;
         Element table = doc.getElementsByClass("table-main js-tablebanner-t js-tablebanner-ntb").first();
         Elements trs = table.getElementsByTag("tr");
         Round currentRound = null;
 
         for (Element tr : trs) {
             if (tr.childrenSize() == 5){
-                // TODO Round
-//                currentRound = new Round();
-//                currentRound.setNumber(tr.getElementsByAttribute("colspan").text());
-//                if (rounds.contains(currentRound)) {
-//                    rounds.get()
-//                    System.out.println("zapochva rund " + currentRound.getNumber());
-//                    rounds.add(currentRound);
-//                }
                 String roundText = tr.getElementsByAttribute("colspan").text();
                 String previousRoundNumber = currentRound == null ? "" : currentRound.getNumber();
                 if (currentRound != null && rounds.stream().noneMatch(round -> round.getNumber().equals(previousRoundNumber))) {
@@ -69,10 +46,8 @@ public class NewLaliga {
                 }
                 currentRound.setNumber(roundText);
                 // System.out.println("current round " + currentRound.getNumber());
-            } else if (tr.childrenSize() == 6) {
-                // TODO Game
-                // ima6 6 kletki i vurvi6 po tqx, suzdavaiki edin Game obekt
-                // i nakraq go dobavq6 kum sega6niq rund
+            }
+            else if (tr.childrenSize() == 6) {
                 game = new Game();
                 Elements spans = tr.getElementsByTag("td").first().getElementsByTag("span");
                 List<String> teamsNames = new ArrayList<>();
@@ -80,39 +55,45 @@ public class NewLaliga {
                     String teamName = span.text();
                     teamsNames.add(teamName);
                 }
-                Team host = new Team();
-                host.setName(teamsNames.get(0));
-                Team guest = new Team();
-                guest.setName(teamsNames.get(1));
-                game.setHost(host);
-                game.setGuest(guest);
-                if (!teams.contains(host) && !teams.contains(guest)) {
+
+                String hostName = teamsNames.get(0);
+                String guestName = teamsNames.get(1);
+
+                // TODO Attempt to find an existing team by name
+                Team host = teams.stream()
+                        .filter(team -> team.getName().equalsIgnoreCase(hostName))
+                        .findFirst().orElse(null);
+                if (host == null) {
+                    // TODO It's a new team, add it to the list of teams
+                    host = new Team();
+                    host.setName(hostName);
                     teams.add(host);
+                }
+
+                // TODO Same here for the guest team
+                Team guest = teams.stream()
+                        .filter(team -> team.getName().equalsIgnoreCase(guestName))
+                        .findFirst().orElse(null);
+                if (guest == null) {
+                    guest = new Team();
+                    guest.setName(guestName);
                     teams.add(guest);
                 }
-                String result = tr.getElementsByClass("h-text-center").first().text();
 
-                if (teamHostResults == null){
-                    teamHostResults = new ArrayList<>();
-                    host.setResults(teamHostResults);
-                }
-                if (teamGuestResults == null){
-                    teamGuestResults = new ArrayList<>();
-                    guest.setResults(teamGuestResults);
-                }
+                game.setHost(host);
+                game.setGuest(guest);
+
+                String result = tr.getElementsByClass("h-text-center").first().text();
                 int hostRes = Integer.parseInt(result.substring(0, result.indexOf(":")));
                 int guestRes = Integer.parseInt(result.substring(result.indexOf(":") + 1, result.length()));
                 if (hostRes < guestRes){
-                    teamHostResults.add("2");
-                    teamGuestResults.add("1");
+                    game.setWinner('2');
                 }
                 if (hostRes == guestRes){
-                    teamHostResults.add("x");
-                    teamGuestResults.add("x");
+                    game.setWinner('X');
                 }
                 if (hostRes > guestRes){
-                    teamHostResults.add("1");
-                    teamGuestResults.add("2");
+                    game.setWinner('1');
                 }
                 game.setResult(result);
                 String date = tr.getElementsByClass("h-text-right h-text-no-wrap").first().text();
@@ -121,10 +102,56 @@ public class NewLaliga {
             }
         }
         rounds.add(currentRound);
-        // TODO na izlizane ot for(), vij current round kakvo ima v nego, i go dobavi i nego, ako e nov
-
         league.setTeams(teams);
         league.setRounds(rounds);
         league.setName(doc.select(".wrap-section__header__title .tablet-desktop-only").text());
+
+        for (Round round1 : league.getRounds()) {
+            for (Game game1 : round1.getGames()) {
+                if ('1' == game1.getWinner()) {
+                    game1.getHost().addResult('1');
+                    game1.getGuest().addResult('2');
+                }
+                else if ('2' == game1.getWinner()){
+                    game1.getHost().addResult('2');
+                    game1.getGuest().addResult('1');
+                }
+                else if ('X' == game1.getWinner()){
+                    game1.getHost().addResult('X');
+                    game1.getGuest().addResult('X');
+                }
+            }
+        }
+        for (Team team1 : league.getTeams()) {
+            Collections.reverse(team1.getResults());
+            System.out.println(team1.getName() + " " + team1.getResults());
+        }
+        calcXOdds(league, "Elche", 0, 7);
+    }
+    public static void calcXOdds(League league, String name, int indexStart, int indexStop){
+        for (Team team : league.getTeams()) {
+            if (team.getName().equalsIgnoreCase(name)){
+               char[] arr =  new char[team.getResults().size()];
+                for (int i = 0; i < team.getResults().size(); i++) {
+                    arr[i] = team.getResults().get(i);
+                }
+                int counter = 0;
+                boolean hasX = false;
+                for (int j = indexStart; j < indexStop; j++){
+                    if (arr[j] == '1' || arr[j] == '2'){
+                        counter++;
+                        if (counter == 7){
+                            System.out.println("Време за залог!");
+                        }
+                    }
+                    else if (arr[j] == 'X'){
+                        counter = 0;
+                        hasX = true;
+                        System.out.println("Скоро е имало равен така че по добре изчакай");
+                        break;
+                    }
+                }
+            }
+        }
     }
 }

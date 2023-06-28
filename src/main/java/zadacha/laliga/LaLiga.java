@@ -94,7 +94,7 @@ public class LaLiga {
                 laLigaTable.put(teamHostElement.text(), teamHostResults);
                 team = new Team();
                 team.setName(teamHostElement.text());
-                team.setResults(teamHostResults);
+
                 teams.add(team);
                 game.setHost(team);
             }
@@ -106,7 +106,7 @@ public class LaLiga {
                     teamGuestResults = new ArrayList<>();
                     laLigaTable.put(teamGuest.text(), teamGuestResults);
                     team = new Team();
-                    team.setResults(teamGuestResults);
+                    //team.setResults(teamGuestResults);
                     team.setName(teamGuest.text());
                     teams.add(team);
                     game.setGuest(team);
