@@ -30,7 +30,7 @@ public class NewLaliga {
         Round currentRound = null;
 
         for (Element tr : trs) {
-            if (tr.childrenSize() == 5){
+            if (tr.childrenSize() == 5) {
                 String roundText = tr.getElementsByAttribute("colspan").text();
                 String previousRoundNumber = currentRound == null ? "" : currentRound.getNumber();
                 if (currentRound != null && rounds.stream().noneMatch(round -> round.getNumber().equals(previousRoundNumber))) {
@@ -46,8 +46,7 @@ public class NewLaliga {
                 }
                 currentRound.setNumber(roundText);
                 // System.out.println("current round " + currentRound.getNumber());
-            }
-            else if (tr.childrenSize() == 6) {
+            } else if (tr.childrenSize() == 6) {
                 game = new Game();
                 Elements spans = tr.getElementsByTag("td").first().getElementsByTag("span");
                 List<String> teamsNames = new ArrayList<>();
@@ -86,13 +85,13 @@ public class NewLaliga {
                 String result = tr.getElementsByClass("h-text-center").first().text();
                 int hostRes = Integer.parseInt(result.substring(0, result.indexOf(":")));
                 int guestRes = Integer.parseInt(result.substring(result.indexOf(":") + 1, result.length()));
-                if (hostRes < guestRes){
+                if (hostRes < guestRes) {
                     game.setWinner('2');
                 }
-                if (hostRes == guestRes){
+                if (hostRes == guestRes) {
                     game.setWinner('X');
                 }
-                if (hostRes > guestRes){
+                if (hostRes > guestRes) {
                     game.setWinner('1');
                 }
                 game.setResult(result);
@@ -111,12 +110,10 @@ public class NewLaliga {
                 if ('1' == game1.getWinner()) {
                     game1.getHost().addResult('1');
                     game1.getGuest().addResult('2');
-                }
-                else if ('2' == game1.getWinner()){
+                } else if ('2' == game1.getWinner()) {
                     game1.getHost().addResult('2');
                     game1.getGuest().addResult('1');
-                }
-                else if ('X' == game1.getWinner()){
+                } else if ('X' == game1.getWinner()) {
                     game1.getHost().addResult('X');
                     game1.getGuest().addResult('X');
                 }
@@ -126,30 +123,27 @@ public class NewLaliga {
             Collections.reverse(team1.getResults());
             System.out.println(team1.getName() + " " + team1.getResults());
         }
-        calcXOdds(league, "Elche", 0, 7);
+        calcXOdds(league, 0, 7);
     }
-    public static void calcXOdds(League league, String name, int indexStart, int indexStop){
+
+    public static void calcXOdds(League league, int indexStart, int indexStop) {
         for (Team team : league.getTeams()) {
-            if (team.getName().equalsIgnoreCase(name)){
-               char[] arr =  new char[team.getResults().size()];
-                for (int i = 0; i < team.getResults().size(); i++) {
-                    arr[i] = team.getResults().get(i);
-                }
-                int counter = 0;
-                boolean hasX = false;
-                for (int j = indexStart; j < indexStop; j++){
-                    if (arr[j] == '1' || arr[j] == '2'){
-                        counter++;
-                        if (counter == 7){
-                            System.out.println("Време за залог!");
-                        }
+            System.out.println(team.getName());
+            char[] arr = new char[team.getResults().size()];
+            for (int i = 0; i < team.getResults().size(); i++) {
+                arr[i] = team.getResults().get(i);
+            }
+            int counter = 0;
+            for (int j = indexStart; j < indexStop; j++) {
+                if (arr[j] == '1' || arr[j] == '2') {
+                    counter++;
+                    if (counter == 7) {
+                        System.out.println("Време за залог!");
                     }
-                    else if (arr[j] == 'X'){
-                        counter = 0;
-                        hasX = true;
-                        System.out.println("Скоро е имало равен така че по добре изчакай");
-                        break;
-                    }
+                } else if (arr[j] == 'X') {
+                    counter = 0;
+                    System.out.println("Скоро е имало равен така че по добре изчакай");
+                    break;
                 }
             }
         }
