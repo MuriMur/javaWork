@@ -123,10 +123,10 @@ public class NewLaliga {
             Collections.reverse(team1.getResults());
             System.out.println(team1.getName() + " " + team1.getResults());
         }
-        calcXOdds(league, 0, 7);
+        calcXOdds(league, 7);
     }
 
-    public static void calcXOdds(League league, int indexStart, int indexStop) {
+    public static void calcXOdds(League league, int indexStop) {
         for (Team team : league.getTeams()) {
             System.out.println(team.getName());
             char[] arr = new char[team.getResults().size()];
@@ -134,11 +134,12 @@ public class NewLaliga {
                 arr[i] = team.getResults().get(i);
             }
             int counter = 0;
-            for (int j = indexStart; j < indexStop; j++) {
+            for (int j = indexStop; j > 0; j--) {
                 if (arr[j] == '1' || arr[j] == '2') {
                     counter++;
                     if (counter == 7) {
                         System.out.println("Време за залог!");
+                        break;
                     }
                 } else if (arr[j] == 'X') {
                     counter = 0;
@@ -146,6 +147,7 @@ public class NewLaliga {
                     break;
                 }
             }
+            System.out.println("the result in next match is: " + arr[indexStop]);
         }
     }
 }
