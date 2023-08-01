@@ -150,4 +150,7 @@ public class NewLaliga {
             System.out.println("the result in next match is: " + arr[indexStop]);
         }
     }
+    public static void calcWinOdds(League league, int indexStop){
+
+    }
 }
