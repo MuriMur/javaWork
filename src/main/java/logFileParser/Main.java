@@ -8,6 +8,7 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         try {
+            //TODO Print Date
             FileInputStream fstream = new FileInputStream("robo-vendor.log");
             BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
             String strLine;
@@ -51,11 +52,25 @@ public class Main {
                     nameClassMap.put(javaClassName, robo);
                     classNamesSet.add(javaClassName);
                 }
-
-                System.out.println(strLine);
             }
             fstream.close();
-
+            for(String className : nameClassMap.keySet()){
+                Robo robo = nameClassMap.get(className);
+                System.out.println("Class: " + robo.getName());
+                System.out.println("Warnings: " + robo.getLog().get("WARN").size());
+                for(String warn : robo.getLog().get("WARN")){
+                    System.out.println(warn);
+                }
+                System.out.println("Errors: " + robo.getLog().get("ERROR").size());
+                for(String error : robo.getLog().get("ERROR")){
+                    System.out.println(error);
+                }
+                System.out.println("Fatals: " + robo.getLog().get("FATAL").size());
+                for(String fatal : robo.getLog().get("FATAL")){
+                    System.out.println(fatal);
+                }
+                System.out.println();
+            }
             System.out.println("count of infos: " + infoCount);
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
